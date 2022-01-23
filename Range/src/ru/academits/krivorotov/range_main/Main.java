@@ -1,4 +1,6 @@
-package ru.academits.krivorotov.range;
+package ru.academits.krivorotov.range_main;
+
+import ru.academits.krivorotov.range.Range;
 import java.util.Scanner;
 
 public class Main {
