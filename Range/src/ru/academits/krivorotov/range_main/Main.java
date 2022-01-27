@@ -1,37 +1,25 @@
 package ru.academits.krivorotov.range_main;
 
 import ru.academits.krivorotov.range.Range;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Range range1 = new Range(2.5, 10.2);
+        Range range2 = new Range(1.2, 11.2);
 
-        System.out.println("Введите вещественное число:");
-        double userNumber = scanner.nextDouble();
+        System.out.print("1) ");
+        range1.getIntersection(range2.getFrom(), range2.getTo());
 
-        double from = 2.5;
-        double to = 10.2;
+        System.out.print("2) ");
+        range1.getAddition(range2.getFrom(), range2.getTo());
 
-        Range range = new Range(from, to);
+        System.out.print("3) ");
+        range1.getSubtraction(range2.getFrom(), range2.getTo());
 
-        if (range.isInside(userNumber)) {
-            System.out.printf("Число %.2f попадает в указанный диапазон%n", userNumber);
-        } else {
-            System.out.println("Число вне диапазона");
-            return;
-        }
+        range1.setFrom(5);
+        range1.setTo(18);
 
-        System.out.printf("Длина диапазона чисел = %.2f%n", range.getLength());
-
-        from = 5;
-        to = 18;
-
-        range.setFrom(from);
-        range.setTo(to);
-
-        System.out.println("Новые значения: from = " + range.getFrom() + ", to = " + range.getTo());
-
-        System.out.printf("Новая длина диапазона чисел = %.2f%n", range.getLength());
+        System.out.println("Новые значения: from = " + range1.getFrom() + ", to = " + range1.getTo());
+        System.out.printf("Новая длина диапазона чисел = %.2f%n", range1.getLength());
     }
 }
