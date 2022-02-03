@@ -1,7 +1,5 @@
 package ru.academits.krivorotov.range;
 
-import java.util.Arrays;
-
 public class Range {
     private double from;
     private double to;
@@ -35,113 +33,70 @@ public class Range {
         return number >= from && number <= to;
     }
 
-    public boolean isInside(double from, double to) {
-        return getFrom() >= from && getTo() <= to;
+    @Override
+    public String toString() {
+        return "(" + from + ", " + to + ")";
     }
 
-    public void getIntersection(double from, double to) {
-        if (getFrom() >= from && getTo() <= to) {
-            System.out.println(defineIntersection(from, to));
-            return;
+    public Range getIntersection(Range object2) {
+        if (this.from < object2.from && this.to > object2.to || this.from > object2.from && this.to < object2.to) { // проверка, если 1 интервал входит во второй целиком
+            double newFrom = Math.max(this.from, object2.from);
+            double newTo = Math.min(this.to, object2.to);
+
+            return new Range(newFrom, newTo);
         }
 
-        if ((getFrom() == to && getTo() != from) || (getFrom() != to && getTo() == from)) {
-            System.out.println("null");
-            return;
+        if (this.from <= object2.from && this.to <= object2.to || this.from >= object2.from && this.to >= object2.to) {
+            if (this.from <= this.to && this.to == object2.from || object2.from <= object2.to && this.from == object2.to) { // касание в 1 точке
+                return null;
+            }
+
+            if (this.to < object2.from || this.from > object2.to) { // интервалы не пересекаются
+                return null;
+            }
+
+            if (this.from <= object2.from) {
+                return new Range(object2.from, this.to);
+            } else {
+                return new Range(this.from, object2.to);
+            }
         }
 
-        System.out.println(defineIntersection(from, to));
+        return null;
     }
 
-    public void getAddition(double from, double to) {
-        if (!("null".equals(defineIntersection(from, to)))) {
-            double minFrom = getMinNumber(getFrom(), from);
-            double maxTo = getMaxNumber(getTo(), to);
+    public Range[] getUnification(Range object2) {
+        if (this.to < object2.from || this.from > object2.to) { // интервалы не пересекаются
+            Range[] array = new Range[2];
+            array[0] = this;
+            array[1] = object2;
 
-            System.out.println("Объединенный интервал " + minFrom + ", " + maxTo);
+            return array;
         } else {
-            System.out.print("Нет пересечения, 2 интервала: ");
-            getArray(from, to);
+            double newFrom = Math.min(this.from, object2.from);
+            double newTo = Math.max(this.to, object2.to);
+
+            return new Range[]{new Range(newFrom, newTo)};
         }
     }
 
-    public double getMaxNumber(double number1, double number2) {
-        return Math.max(number1, number2);
-    }
+    public Range[] getDifference(Range object2) {
+        if (this.to <= object2.from || this.from >= object2.to) { // нет пересечения, в остальных случаях есть пересечение или касание
+            return new Range[]{new Range(this.from, this.to)};
+        } else if (this.from >= object2.from && this.to <= object2.to) {
+            return new Range[]{};
+        } else if (this.from < object2.from && this.to <= object2.to) {
+            return new Range[]{new Range(this.from, object2.from)};
+        } else if (this.from < object2.from) {
+            Range range1 = new Range(this.from, object2.from);
+            Range range2 = new Range(object2.to, this.to);
+            Range[] array = new Range[2];
+            array[0] = range1;
+            array[1] = range2;
 
-    public double getMinNumber(double number1, double number2) {
-        return Math.min(number1, number2);
-    }
-
-    public String defineIntersection(double from, double to) {
-        int countEntriesInInterval = 0;
-        double newFrom = getFrom();
-        double newTo = getTo();
-
-        if (getFrom() >= from && getTo() <= to) { // проверка, если 1 интервал входит во второй целиком
-            if (isInside(from, to)) {
-                newFrom = getMaxNumber(getFrom(), from);
-                newTo = getMinNumber(getTo(), to);
-
-                return "Значения пересечения интервалов: " + newFrom + ", " + newTo;
-            }
+            return array;
         }
 
-        if (isInside(from)) {
-            newFrom = from;
-            countEntriesInInterval++;
-        }
-
-        if (isInside(to)) {
-            newTo = to;
-            countEntriesInInterval++;
-        }
-
-        if (countEntriesInInterval != 0) {
-            return "Значения пересечения интервалов: " + newFrom + ", " + newTo;
-        }
-
-        return "null";
-    }
-
-    public void getArray(double from, double to) {
-        if (getFrom() < from && getTo() > to) {
-            double[][] ranges = {{getFrom(), from}, {to, getTo()}};
-            System.out.println(Arrays.deepToString(ranges));
-            return;
-        }
-
-        double[][] ranges = {{getFrom(), getTo()}, {from, to}};
-        System.out.println(Arrays.deepToString(ranges));
-    }
-
-    public void getSubtraction(double from, double to) {
-        if (!("null".equals(defineIntersection(from, to)))) { // есть пересечение
-            if (getFrom() >= from && getTo() <= to) { // интервалы равны или первый содержится во втором
-                System.out.println("Разность интервалов равна - 0");
-            }
-
-            if (getTo() == from || getFrom() == to) { // интервалы касаются в 1 точке
-                System.out.print("Нет пересечения, 2 интервала: ");
-                getArray(from, to);
-            }
-
-            if (getFrom() < from && getTo() <= to) {
-                System.out.println("Разность интервалов равна = " + getFrom() + ", " + from);
-            }
-
-            if (getFrom() < from && getTo() > to) {
-                System.out.print("Разность интервалов равна 2-м интервалам: ");
-                getArray(from, to);
-            }
-
-            if (getFrom() < to && getTo() > to) {
-                System.out.println("Разность интервалов равна = " + to + ", " + getTo());
-            }
-
-        } else { // нет пересечения
-            System.out.print("Нет пересечения, 2 интервала: ");
-            getArray(from, to);
-        }
+        return new Range[]{new Range(object2.to, this.to)};
     }
 }
