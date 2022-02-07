@@ -9,13 +9,9 @@ public class Main {
         Range range1 = new Range(2.5, 18.2);
         Range range2 = new Range(1.2, 11.2);
 
-        if (range1.getIntersection(range2) != null) {
-            System.out.println(range1.getIntersection(range2).toString());
-        } else {
-            System.out.println("" + null);
-        }
+        System.out.println(range1.getIntersection(range2));
 
-        System.out.println(Arrays.toString(range1.getUnification(range2)));
+        System.out.println(Arrays.toString(range1.getUnion(range2)));
 
         System.out.println(Arrays.toString(range1.getDifference(range2)));
 
