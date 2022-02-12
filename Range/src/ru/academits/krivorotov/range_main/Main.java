@@ -9,11 +9,11 @@ public class Main {
         Range range1 = new Range(2.5, 18.2);
         Range range2 = new Range(1.2, 11.2);
 
-        System.out.println(range1.getIntersection(range2));
+        System.out.println("Пересечение диапазонов: " + range1.getIntersection(range2));
 
-        System.out.println(Arrays.toString(range1.getUnion(range2)));
+        System.out.println("Объединение диапазонов: " + Arrays.toString(range1.getUnion(range2)));
 
-        System.out.println(Arrays.toString(range1.getDifference(range2)));
+        System.out.println("Разность диапазонов: " + Arrays.toString(range1.getDifference(range2)));
 
         double number = 10;
         if (range1.isInside(number)) {

@@ -57,11 +57,17 @@ public class Range {
     public Range[] getDifference(Range range) {
         if (to <= range.from || from >= range.to) { // нет пересечения, в остальных случаях есть пересечение или касание
             return new Range[]{new Range(from, to)};
-        } else if (from >= range.from && to <= range.to) {
+        }
+
+        if (from >= range.from && to <= range.to) {
             return new Range[]{};
-        } else if (from < range.from && to <= range.to) {
+        }
+
+        if (from < range.from && to <= range.to) {
             return new Range[]{new Range(from, range.from)};
-        } else if (from < range.from) {
+        }
+
+        if (from < range.from) {
             return new Range[]{new Range(from, range.from), new Range(range.to, to)};
         }
 
