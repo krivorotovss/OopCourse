@@ -16,6 +16,7 @@ public class Main {
         System.out.println("Разность диапазонов: " + Arrays.toString(range1.getDifference(range2)));
 
         double number = 10;
+        
         if (range1.isInside(number)) {
             System.out.println("Число " + number + " попадает в диапазон range1");
         } else {
