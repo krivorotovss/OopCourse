@@ -8,6 +8,10 @@ public class Vector {
     protected double[] array;
 
     public Vector(int size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Значение размерности <= 0");
+        }
+
         this.size = size;
         this.array = new double[size];
         Arrays.fill(array, 0.0);
@@ -33,6 +37,11 @@ public class Vector {
     public Vector(int size, double[] array) {
         this.size = size;
         this.array = new double[size];
+
+        if (size <= 0) {
+            throw new IllegalArgumentException("Значение размерности <= 0");
+        }
+
         for (int i = 0; i < array.length; i++) {
             if (this.array[i] != array[i]) {
                 this.array[i] = array[i];

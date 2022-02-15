@@ -6,7 +6,7 @@ import static ru.academits.krivorotov.vector.Vector.*;
 
 public class Main {
     public static void main(String[] args) {
-        Vector vector = new Vector(5);
+        Vector vector = new Vector(1);
         Vector vector1 = new Vector(new double[]{1.0, 4.0, 1.0, 0});
         Vector vector2 = new Vector(5, new double[]{5.0, 3.0, 4.0});
         Vector vector3 = new Vector(vector1);
