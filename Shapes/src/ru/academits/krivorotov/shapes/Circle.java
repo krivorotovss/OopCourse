@@ -1,27 +1,42 @@
 package ru.academits.krivorotov.shapes;
 
-import java.util.Objects;
-
 public class Circle implements Shape {
-    double radius;
+    private double radius;
 
     public Circle(double radius) {
         this.radius = radius;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(radius);
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 
     @Override
-    public boolean equals(Object object) {
-        return object != null && object.getClass() == this.getClass();
+    public int hashCode() {
+        return Double.hashCode(radius);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        }
+
+        Circle c = (Circle) o;
+        return radius == c.radius;
     }
 
     @Override
     public String toString() {
-        return "Круг: площадь = " + getArea() + ", периметр = " + getPerimeter() + ", диаметр = " + getWidth();
+        return "Круг: радиус = " + getRadius() + ", площадь = " + getArea() + ", периметр = " + getPerimeter() + ", диаметр = " + getWidth();
     }
 
     @Override
@@ -36,7 +51,7 @@ public class Circle implements Shape {
 
     @Override
     public double getArea() {
-        return (Math.PI * radius * radius) / 2;
+        return (Math.PI * radius * radius);
     }
 
     @Override

@@ -1,48 +1,67 @@
 package ru.academits.krivorotov.shapes;
 
-import java.util.Objects;
-
 public class Rectangle implements Shape {
-    double sideLength1;
-    double sideLength2;
+    private double width;
+    private double height;
 
-    public Rectangle(double sideLength1, double sideLength2) {
-        this.sideLength1 = sideLength1;
-        this.sideLength2 = sideLength2;
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sideLength1, sideLength2);
+        int prime = 31;
+        int hash = 1;
+        hash = prime * hash + Double.hashCode(width);
+        hash = prime * hash + Double.hashCode(height);
+        return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        return object != null && object.getClass() == this.getClass();
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        }
+
+        Rectangle r = (Rectangle) o;
+        return width == r.width && height == r.height;
     }
 
     @Override
     public String toString() {
-        return "Прямоугольник: площадь = " + getArea() + ", периметр = " + getPerimeter() + ", ширина = " + getWidth() + ", высота = " + getHeight();
+        return "Прямоугольник: " + "ширина = " + getWidth() + ", высота = " + getHeight() + ", площадь = " + getArea() + ", периметр = " + getPerimeter();
     }
 
     @Override
     public double getWidth() {
-        return sideLength1;
+        return width;
     }
 
     @Override
     public double getHeight() {
-        return sideLength2;
+        return height;
     }
 
     @Override
     public double getArea() {
-        return sideLength1 * sideLength2;
+        return width * height;
     }
 
     @Override
     public double getPerimeter() {
-        return (sideLength1 + sideLength2) * 2;
+        return (width + height) * 2;
     }
 }

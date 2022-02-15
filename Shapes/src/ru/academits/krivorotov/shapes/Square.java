@@ -1,27 +1,42 @@
 package ru.academits.krivorotov.shapes;
 
-import java.util.Objects;
-
 public class Square implements Shape {
-    double sideLength;
+    private double sideLength;
 
     public Square(double sideLength) {
         this.sideLength = sideLength;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(sideLength);
+    public double getSideLength() {
+        return sideLength;
+    }
+
+    public void setSideLength(double sideLength) {
+        this.sideLength = sideLength;
     }
 
     @Override
-    public boolean equals(Object object) {
-        return object != null && object.getClass() == this.getClass();
+    public int hashCode() {
+        return Double.hashCode(sideLength);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        }
+
+        Square s = (Square) o;
+        return sideLength == s.sideLength;
     }
 
     @Override
     public String toString() {
-        return "Квадрат: площадь = " + getArea() + ", периметр = " + getPerimeter() + ", сторона = " + getWidth();
+        return "Квадрат:" + " сторона = " + getSideLength() + ", площадь = " + getArea() + ", периметр = " + getPerimeter();
     }
 
     @Override
