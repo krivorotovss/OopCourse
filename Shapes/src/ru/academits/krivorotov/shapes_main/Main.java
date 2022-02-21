@@ -3,21 +3,6 @@ package ru.academits.krivorotov.shapes_main;
 import ru.academits.krivorotov.shapes.*;
 
 import java.util.Arrays;
-import java.util.Comparator;
-
-class AreaComparator implements Comparator<Shape> {
-    @Override
-    public int compare(Shape shape1, Shape shape2) {
-        return Double.compare(shape1.getArea(), shape2.getArea());
-    }
-}
-
-class PerimeterComparator implements Comparator<Shape> {
-    @Override
-    public int compare(Shape shape1, Shape shape2) {
-        return Double.compare(shape1.getPerimeter(), shape2.getPerimeter());
-    }
-}
 
 public class Main {
     public static void main(String[] args) {
@@ -48,7 +33,7 @@ public class Main {
 
         Square square = new Square(2);
         square.setSideLength(3);
-        System.out.println("Площадь квадрата = " + square.getArea());
+        System.out.println("Сторона квадрата = " + square.getSideLength() + ", площадь квадрата = " + square.getArea());
 
         Triangle triangle = new Triangle(2, 2, 5, 3, 4, 6);
         triangle.setX1(3);
@@ -57,6 +42,6 @@ public class Main {
         triangle.setY2(0);
         triangle.setX3(5);
         triangle.setY3(5);
-        System.out.println("Площадь треугольника = " + triangle.getArea());
+        System.out.println("Координаты вершин: (" + triangle.getX1() + "; " + triangle.getY1() + "), (" + triangle.getX2() + "; " + triangle.getY2() + "), (" + triangle.getX3() + "; " + triangle.getY3() + ")" + ", площадь треугольника = " + triangle.getArea());
     }
 }

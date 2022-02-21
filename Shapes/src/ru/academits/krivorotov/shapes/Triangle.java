@@ -94,7 +94,7 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return "Треугольник: " + "координаты вершин: " + "(" + getX1() + "; " + getY1() + "), " + "(" + getX2() + "; " + getY2() + "), " + "(" + getX3() + "; " + getY3() + "), " + "площадь = " + getArea() + ", периметр = " + getPerimeter() + ", ширина = " + getWidth() + ", высота = " + getHeight();
+        return "Треугольник: координаты вершин: " + "(" + x1 + "; " + y1 + "), " + "(" + x2 + "; " + y2 + "), " + "(" + x3 + "; " + y3 + "), " + "площадь = " + getArea() + ", периметр = " + getPerimeter() + ", ширина = " + getWidth() + ", высота = " + getHeight();
     }
 
     @Override
