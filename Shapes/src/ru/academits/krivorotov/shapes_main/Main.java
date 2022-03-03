@@ -13,14 +13,14 @@ public class Main {
                 new Triangle(2, 2, 4, 5, 8, 7),
                 new Rectangle(10, 15),
                 new Rectangle(10, 11),
-                new Circle(11),
+                new Circle(11)
         };
 
         Arrays.sort(shapes, new AreaComparator());
-        System.out.println(("Наибольшая площадь фигуры - " + shapes[shapes.length - 1]));
+        System.out.println("Наибольшая площадь фигуры - " + shapes[shapes.length - 1]);
 
         Arrays.sort(shapes, new PerimeterComparator());
-        System.out.println(("Фигура со вторым по величине периметром - " + shapes[shapes.length - 2]));
+        System.out.println("Фигура со вторым по величине периметром - " + shapes[shapes.length - 2]);
 
         Circle circle = new Circle(5);
         circle.setRadius(10);
@@ -42,6 +42,7 @@ public class Main {
         triangle.setY2(0);
         triangle.setX3(5);
         triangle.setY3(5);
-        System.out.println("Координаты вершин: (" + triangle.getX1() + "; " + triangle.getY1() + "), (" + triangle.getX2() + "; " + triangle.getY2() + "), (" + triangle.getX3() + "; " + triangle.getY3() + ")" + ", площадь треугольника = " + triangle.getArea());
+        System.out.println("Координаты вершин: (" + triangle.getX1() + "; " + triangle.getY1() + "), (" + triangle.getX2() + "; " + triangle.getY2() + "), (" +
+                triangle.getX3() + "; " + triangle.getY3() + "), площадь треугольника = " + triangle.getArea());
     }
 }

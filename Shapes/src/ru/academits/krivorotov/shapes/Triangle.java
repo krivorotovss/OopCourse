@@ -94,12 +94,13 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return "Треугольник: координаты вершин: " + "(" + x1 + "; " + y1 + "), " + "(" + x2 + "; " + y2 + "), " + "(" + x3 + "; " + y3 + "), " + "площадь = " + getArea() + ", периметр = " + getPerimeter() + ", ширина = " + getWidth() + ", высота = " + getHeight();
+        return "Треугольник: координаты вершин: (" + x1 + "; " + y1 + "), (" + x2 + "; " + y2 + "), (" + x3 + "; " + y3 + "), площадь = " +
+                getArea() + ", периметр = " + getPerimeter() + ", ширина = " + getWidth() + ", высота = " + getHeight();
     }
 
     @Override
     public double getWidth() {
-        if (isStraightLine(x1, y1, x2, y2, x3, y3)) {
+        if (isStraightLine()) {
             return 0;
         }
 
@@ -108,7 +109,7 @@ public class Triangle implements Shape {
 
     @Override
     public double getHeight() {
-        if (isStraightLine(x1, y1, x2, y2, x3, y3)) {
+        if (isStraightLine()) {
             return 0;
         }
 
@@ -117,7 +118,7 @@ public class Triangle implements Shape {
 
     @Override
     public double getArea() {
-        if (isStraightLine(x1, y1, x2, y2, x3, y3)) {
+        if (isStraightLine()) {
             return 0;
         }
 
@@ -131,7 +132,7 @@ public class Triangle implements Shape {
 
     @Override
     public double getPerimeter() {
-        if (isStraightLine(x1, y1, x2, y2, x3, y3)) {
+        if (isStraightLine()) {
             return 0;
         }
 
@@ -146,7 +147,7 @@ public class Triangle implements Shape {
         return Math.min(Math.min(number1, number2), number3);
     }
 
-    private static boolean isStraightLine(double x1, double y1, double x2, double y2, double x3, double y3) {
+    private boolean isStraightLine() {
         double epsilon = 1.0e-10;
 
         return Math.abs((y1 - y2) * (x1 - x3) - (x1 - x2) * (y1 - y3)) <= epsilon; // Точки на одной прямой
