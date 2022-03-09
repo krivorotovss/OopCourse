@@ -7,7 +7,7 @@ public class Vector {
 
     public Vector(int size) {
         if (size <= 0) {
-            throw new IllegalArgumentException("Значение размерности (int size) <= 0,  int size = " + size);
+            throw new IllegalArgumentException("Значение размерности, должно быть > 0,  size = " + size);
         }
 
         components = new double[size];
@@ -39,9 +39,9 @@ public class Vector {
 
     @Override
     public String toString() {
-        return Arrays.toString(components)
-                .replace("[", "{")
-                .replace("]", "}");
+        String string = Arrays.toString(components);
+
+        return "{" + string.substring(1, string.length() - 1) + "}";
     }
 
     @Override
@@ -71,12 +71,9 @@ public class Vector {
             for (int i = 0; i < components.length; i++) {
                 components[i] += vector.components[i];
             }
-
         } else {
-            Vector vectorCopy = new Vector(Arrays.copyOf(vector.components, components.length));
-
-            for (int i = 0; i < components.length; i++) {
-                components[i] += vectorCopy.components[i];
+            for (int i = 0; i < vector.components.length; i++) {
+                components[i] += vector.components[i];
             }
         }
 
@@ -90,12 +87,9 @@ public class Vector {
             for (int i = 0; i < components.length; i++) {
                 components[i] -= vector.components[i];
             }
-
         } else {
-            Vector vectorCopy = new Vector(Arrays.copyOf(vector.components, components.length));
-
-            for (int i = 0; i < components.length; i++) {
-                components[i] -= vectorCopy.components[i];
+            for (int i = 0; i < vector.components.length; i++) {
+                components[i] -= vector.components[i];
             }
         }
 
@@ -110,8 +104,10 @@ public class Vector {
         return this;
     }
 
-    public void reverse() {
+    public Vector reverse() {
         multiplyByScalar(-1);
+
+        return this;
     }
 
     public double getLength() {
@@ -133,14 +129,14 @@ public class Vector {
     }
 
     public static Vector getSum(Vector vector1, Vector vector2) {
-        Vector resultVector = new Vector(Arrays.copyOf(vector1.components, Math.max(vector1.components.length, vector2.components.length)));
+        Vector resultVector = new Vector(vector1);
         resultVector.add(vector2);
 
         return resultVector;
     }
 
     public static Vector getDifference(Vector vector1, Vector vector2) {
-        Vector resultVector = new Vector(Arrays.copyOf(vector1.components, Math.max(vector1.components.length, vector2.components.length)));
+        Vector resultVector = new Vector(vector1);
         resultVector.subtract(vector2);
 
         return resultVector;
@@ -148,9 +144,9 @@ public class Vector {
 
     public static double getScalarProduct(Vector vector1, Vector vector2) {
         double scalarProduct = 0;
-        int minVectorsLength = Math.min(vector1.components.length, vector2.components.length);
+        int minVectorsSize = Math.min(vector1.components.length, vector2.components.length);
 
-        for (int i = 0; i < minVectorsLength; i++) {
+        for (int i = 0; i < minVectorsSize; i++) {
             scalarProduct += vector1.components[i] * vector2.components[i];
         }
 
