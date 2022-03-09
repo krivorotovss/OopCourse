@@ -27,7 +27,7 @@ public class Vector {
 
     public Vector(int size, double[] components) {
         if (size <= 0) {
-            throw new IllegalArgumentException("Значение размерности (int size) <= 0,  int size = " + size);
+            throw new IllegalArgumentException("Значение размерности, должно быть > 0,  size =  " + size);
         }
 
         this.components = Arrays.copyOf(components, size);
