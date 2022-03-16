@@ -7,7 +7,7 @@ public class Vector {
 
     public Vector(int size) {
         if (size <= 0) {
-            throw new IllegalArgumentException("Значение размерности, должно быть > 0,  size = " + size);
+            throw new IllegalArgumentException("Значение размерности, должно быть > 0, size = " + size);
         }
 
         components = new double[size];
@@ -27,7 +27,7 @@ public class Vector {
 
     public Vector(int size, double[] components) {
         if (size <= 0) {
-            throw new IllegalArgumentException("Значение размерности, должно быть > 0,  size =  " + size);
+            throw new IllegalArgumentException("Значение размерности, должно быть > 0, size = " + size);
         }
 
         this.components = Arrays.copyOf(components, size);
@@ -39,9 +39,11 @@ public class Vector {
 
     @Override
     public String toString() {
-        String string = Arrays.toString(components);
+        StringBuilder builder = new StringBuilder(Arrays.toString(components));
+        builder.replace(0, 1, "{");
+        builder.replace(builder.length() - 1, builder.length(), "}");
 
-        return "{" + string.substring(1, string.length() - 1) + "}";
+        return builder.toString();
     }
 
     @Override
@@ -67,14 +69,10 @@ public class Vector {
     public Vector add(Vector vector) {
         if (components.length < vector.components.length) {
             components = Arrays.copyOf(components, vector.components.length);
+        }
 
-            for (int i = 0; i < components.length; i++) {
-                components[i] += vector.components[i];
-            }
-        } else {
-            for (int i = 0; i < vector.components.length; i++) {
-                components[i] += vector.components[i];
-            }
+        for (int i = 0; i < vector.components.length; i++) {
+            components[i] += vector.components[i];
         }
 
         return this;
@@ -83,14 +81,10 @@ public class Vector {
     public Vector subtract(Vector vector) {
         if (components.length < vector.components.length) {
             components = Arrays.copyOf(components, vector.components.length);
+        }
 
-            for (int i = 0; i < components.length; i++) {
-                components[i] -= vector.components[i];
-            }
-        } else {
-            for (int i = 0; i < vector.components.length; i++) {
-                components[i] -= vector.components[i];
-            }
+        for (int i = 0; i < vector.components.length; i++) {
+            components[i] -= vector.components[i];
         }
 
         return this;
