@@ -39,9 +39,13 @@ public class Vector {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder(Arrays.toString(components));
-        builder.replace(0, 1, "{");
-        builder.replace(builder.length() - 1, builder.length(), "}");
+        StringBuilder builder = new StringBuilder();
+        for (double component : components) {
+            builder.append(" ").append(component).append(",");
+        }
+
+        builder.setCharAt(0, '{');
+        builder.setCharAt(builder.length() - 1, '}');
 
         return builder.toString();
     }
