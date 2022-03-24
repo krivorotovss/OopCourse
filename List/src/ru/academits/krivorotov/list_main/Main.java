@@ -1,76 +1,63 @@
 package ru.academits.krivorotov.list_main;
 
-import ru.academits.krivorotov.singlyLinkedList.SinglyLinkedList;
+import ru.academits.krivorotov.singly_linked_list.SinglyLinkedList;
 
 public class Main {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> list1 = new SinglyLinkedList<>();
 
+        System.out.println(list1);
+        System.out.println();
+
         list1.addFirst(1);
         list1.addFirst(2);
-        list1.addFirst(3);
+        list1.addFirst(null);
         list1.addFirst(4);
         list1.addFirst(5);
-        list1.print();
+        list1.add(6);
+
+        System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
 
-        System.out.print("Удаление первого элемента: ");
-        list1.removeFirst();
-        System.out.println();
-
-        list1.print();
+        System.out.println("Удаление первого элемента: " + list1.removeFirst());
+        System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
 
-        System.out.print("Элемент по индексу (printByIndex): ");
-        list1.printByIndex(1);
-        System.out.println();
-
-        System.out.println("Значение первого элемента: " + list1.getValueFirst());
+        System.out.println("Значение первого элемента: " + list1.getFirst());
         System.out.println();
 
         System.out.println("Вставка элемента по индексу (addByIndex):");
-        list1.addByIndex(22, 2);
-        list1.print();
+        list1.addByIndex(2, 22);
+        System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
 
-        System.out.println("Элемент по индексу (getValueByIndex): " + list1.getValueByIndex(0));
+        System.out.println("Элемент по индексу (getByIndex): " + list1.getByIndex(0));
         System.out.println();
 
-        System.out.print("Изменение элемента по индексу (setValueByIndex), вывод предыдущего значения: ");
-        list1.setValueByIndex(1, 8);
-        System.out.println();
-        list1.print();
+        System.out.println("Изменение элемента по индексу (setByIndex), вывод предыдущего значения: " + list1.setByIndex(0, 8));
+        System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
 
-        System.out.print("Удаление элемента по индексу (removeByIndex): ");
-        list1.removeByIndex(4);
-        System.out.println();
-        list1.print();
+        System.out.println("Удаление элемента по индексу (removeByIndex), значение: " + list1.removeByIndex(3));
+        System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
 
-        System.out.print("Удаление элемента по значению (removeByData): ");
-        list1.removeByData(22);
-        System.out.println();
-        list1.print();
+        System.out.println("Удаление элемента по значению (removeByData): " + list1.removeByData(33));
+        System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
 
-        System.out.println("ReverseList: ");
+        System.out.println("ReverseList:");
         list1.reverse();
-        list1.print();
+        System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
 
-        System.out.println("list2: ");
-        SinglyLinkedList<Integer> list2 = new SinglyLinkedList<>();
-        list1.copy(list2);
-        list2.print();
-        System.out.println("Размер list2 = " + list2.getSize());
-
+        System.out.println("Копирование list1 (copy): " + list1.copy());
     }
 }
