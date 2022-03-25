@@ -36,14 +36,14 @@ public class ArrayListHome {
         ArrayList<Integer> numbersList2 = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 8, 1, 4, 6, 8, 10, 1, 3, 5, 1));
         System.out.println("Исходный arrayList: " + numbersList2);
 
-        ArrayList<Integer> numbersListWithOutDuplicates = new ArrayList<>(numbersList2.size());
+        ArrayList<Integer> numbersListWithoutDuplicates = new ArrayList<>(numbersList2.size());
 
         for (Integer number : numbersList2) {
-            if (!numbersListWithOutDuplicates.contains(number)) {
-                numbersListWithOutDuplicates.add(number);
+            if (!numbersListWithoutDuplicates.contains(number)) {
+                numbersListWithoutDuplicates.add(number);
             }
         }
 
-        System.out.println("Новый arrayList без дубликатов: " + numbersListWithOutDuplicates);
+        System.out.println("Новый arrayList без дубликатов: " + numbersListWithoutDuplicates);
     }
 }
