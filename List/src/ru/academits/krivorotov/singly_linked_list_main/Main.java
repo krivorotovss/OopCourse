@@ -1,4 +1,4 @@
-package ru.academits.krivorotov.list_main;
+package ru.academits.krivorotov.singly_linked_list_main;
 
 import ru.academits.krivorotov.singly_linked_list.SinglyLinkedList;
 
@@ -15,21 +15,23 @@ public class Main {
         list1.addFirst(4);
         list1.addFirst(5);
         list1.add(6);
+        list1.add(7);
+
 
         System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
 
-        System.out.println("Удаление первого элемента: " + list1.removeFirst());
+        System.out.println("Удаление первого элемента (removeFirst): " + list1.removeFirst());
         System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
 
-        System.out.println("Значение первого элемента: " + list1.getFirst());
+        System.out.println("Значение первого элемента (getFirst): " + list1.getFirst());
         System.out.println();
 
         System.out.println("Вставка элемента по индексу (addByIndex):");
-        list1.addByIndex(2, 22);
+        list1.addByIndex(3, 22);
         System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
@@ -42,7 +44,7 @@ public class Main {
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
 
-        System.out.println("Удаление элемента по индексу (removeByIndex), значение: " + list1.removeByIndex(3));
+        System.out.println("Удаление элемента по индексу (removeByIndex), значение: " + list1.removeByIndex(5));
         System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
