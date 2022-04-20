@@ -5,7 +5,6 @@ import ru.academits.krivorotov.singly_linked_list.SinglyLinkedList;
 public class Main {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> list1 = new SinglyLinkedList<>();
-        SinglyLinkedList<Integer> listCopy = new SinglyLinkedList<>();
 
         System.out.println(list1);
         System.out.println();
