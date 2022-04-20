@@ -5,6 +5,7 @@ import ru.academits.krivorotov.singly_linked_list.SinglyLinkedList;
 public class Main {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> list1 = new SinglyLinkedList<>();
+        SinglyLinkedList<Integer> listCopy = new SinglyLinkedList<>();
 
         System.out.println(list1);
         System.out.println();
@@ -16,7 +17,6 @@ public class Main {
         list1.addFirst(5);
         list1.add(6);
         list1.add(7);
-
 
         System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
@@ -40,7 +40,6 @@ public class Main {
         System.out.println();
 
         System.out.println("Изменение элемента по индексу (setByIndex), вывод предыдущего значения: " + list1.setByIndex(0, 8));
-        System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
         System.out.println();
 
@@ -58,8 +57,12 @@ public class Main {
         list1.reverse();
         System.out.println(list1);
         System.out.println("Размер list1 = " + list1.getSize());
+        System.out.println(list1);
         System.out.println();
 
         System.out.println("Копирование list1 (copy): " + list1.copy());
+
+        System.out.println("list1 = " + list1);
+        System.out.println("Размер list1 = " + list1.getSize());
     }
 }
