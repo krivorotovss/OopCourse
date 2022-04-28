@@ -1,5 +1,6 @@
 package ru.academits.krivorotov.singly_linked_list;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SinglyLinkedList<T> {
@@ -39,11 +40,7 @@ public class SinglyLinkedList<T> {
     }
 
     public void add(T data) {
-        if (head == null) {
-            addFirst(data);
-        } else {
-            addByIndex(size, data);
-        }
+        addByIndex(size, data);
     }
 
     public void addByIndex(int index, T data) {
@@ -73,7 +70,7 @@ public class SinglyLinkedList<T> {
     }
 
     public T removeByIndex(int index) {
-        checkSize(index);
+        checkIndex(index);
 
         if (index == 0) {
             return removeFirst();
@@ -115,13 +112,13 @@ public class SinglyLinkedList<T> {
     }
 
     public T getByIndex(int index) {
-        checkSize(index);
+        checkIndex(index);
 
         return getItem(index).getData();
     }
 
     public T setByIndex(int index, T data) {
-        checkSize(index);
+        checkIndex(index);
 
         ListItem<T> currentItem = getItem(index);
         T oldData = currentItem.getData();
@@ -146,21 +143,24 @@ public class SinglyLinkedList<T> {
 
     public SinglyLinkedList<T> copy() {
         SinglyLinkedList<T> listCopy = new SinglyLinkedList<>();
+        listCopy.size = size;
 
-        for (ListItem<T> currentItem = head, currentItemCopy = listCopy.head, previousItemCopy = null; currentItem != null;
-             currentItem = currentItem.getNext(), previousItemCopy = currentItemCopy, currentItemCopy = currentItemCopy.getNext()) {
+        ListItem<T> currentItem = head;
+        ListItem<T> currentItemCopy;
+        ListItem<T> previousItemCopy;
 
-            if (currentItemCopy != listCopy.head) {
-                currentItemCopy = new ListItem<>(currentItem.getData());
+        currentItemCopy = new ListItem<>(currentItem.getData());
 
-                previousItemCopy.setNext(currentItemCopy);
-            } else {
-                currentItemCopy = new ListItem<>(currentItem.getData());
+        listCopy.head = currentItemCopy;
+        currentItem = currentItem.getNext();
+        previousItemCopy = currentItemCopy;
 
-                listCopy.head = currentItemCopy;
-            }
+        while (currentItem != null) {
+            currentItemCopy = new ListItem<>(currentItem.getData());
 
-            listCopy.size++;
+            previousItemCopy.setNext(currentItemCopy);
+            currentItem = currentItem.getNext();
+            previousItemCopy = currentItemCopy;
         }
 
         return listCopy;
@@ -178,11 +178,11 @@ public class SinglyLinkedList<T> {
 
     private void checkSize() {
         if (size == 0) {
-            throw new IndexOutOfBoundsException("Список пуст, size = 0");
+            throw new NoSuchElementException("Список пуст, size = 0");
         }
     }
 
-    private void checkSize(int index) {
+    private void checkIndex(int index) {
         if (size == 0) {
             throw new IndexOutOfBoundsException("Список пуст, size = 0, index = " + index);
         }
