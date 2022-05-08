@@ -15,8 +15,17 @@ public class Main {
         list1.add("hello");
         list1.add("hello1");
         list1.add("hello2");
+        list1.add(3, "hello3");
+        System.out.println("Вывод списка list1: " + list1);
+        System.out.println("Размер списка list1: " + list1.size());
+        System.out.println();
+
         System.out.println("Метод set, вставка значения:" + list1.set(1, "element"));
-        list1.add("hello3");
+        System.out.println("Вывод списка list1: " + list1);
+        System.out.println("Размер списка list1: " + list1.size());
+        System.out.println();
+
+        list1.add("hello10");
         System.out.println("Добавление нового элемента: " + list1.add("newHello"));
         System.out.println("Вывод списка list1: " + list1);
         System.out.println("Размер списка list1: " + list1.size());
@@ -35,13 +44,15 @@ public class Main {
         System.out.println("Вывод списка list1: " + list1);
         System.out.println("Размер списка list1: " + list1.size());
         System.out.println();
+        list1.trimToSize();
 
-        System.out.println("Удаление элемента по индексу, удаленный элемент: " + list1.remove(0));
+        System.out.println("Удаление элемента по индексу, удаленный элемент: " + list1.remove(2));
+        list1.trimToSize();
         System.out.println("Вывод списка list1, после удаления по индексу: " + list1);
         System.out.println("Размер списка list1: " + list1.size());
         System.out.println();
 
-        System.out.println("Удаление элемента: " + list1.remove("hello5"));
+        System.out.println("Удаление элемента: " + list1.remove("hello4"));
         System.out.println("Вывод списка list1, после удаления по data: " + list1);
         System.out.println("Размер списка list1: " + list1.size());
         System.out.println();
@@ -51,8 +62,7 @@ public class Main {
         list2.add("hello1");
         list2.add("hello2");
         list2.add("hello3");
-        list2.increaseCapacity(15);
-        list2.ensureCapacity(20);
+
         System.out.println("Вывод списка list2: " + list2);
         System.out.println("Размер списка list2: " + list2.size());
         System.out.println();
@@ -76,7 +86,9 @@ public class Main {
         System.out.println("Первое вхождение: " + list2.indexOf("1"));
         list2.add("hello");
         System.out.println("Первое вхождение: " + list2.indexOf("2"));
-        System.out.println("Последнее вхождение: " + list2.lastIndexOf("2"));
+        System.out.println("Вывод списка list2: " + list2);
+        System.out.println("Размер списка list2: " + list2.size());
+        System.out.println("Последнее вхождение: " + list2.lastIndexOf("newElement"));
         System.out.println();
 
         System.out.println("Вывод списка list1: " + list1);
@@ -95,27 +107,25 @@ public class Main {
         System.out.println("Размер списка list1: " + list1.size());
         System.out.println();
 
-        ArrayList<String> list3 = new ArrayList<>(10);
-        list3.add("hello");
-        list3.add("hello1");
-        list3.add("hello2");
-        list3.add("hello3");
-        list3.add("hello4");
-        list3.add("newHello");
-        list3.add("1");
+        ArrayList<String> list3 = new ArrayList<>(8);
+        list3.add("list31");
+        list3.add("list32");
+        list3.add("list33");
+        list3.add("list34");
+        list3.add("list35");
+        list3.add("list36");
+        list3.add("list37");
 
         System.out.println("Вывод списка list1: " + list1);
+        System.out.println("Размер списка list1: " + list1.size());
         System.out.println("Вывод списка list3: " + list3);
+        System.out.println("Размер списка list3: " + list3.size());
         System.out.println();
 
-        list1.add("hello");
-        list1.add("hello1");
-        list1.add("hello2");
-        list1.add("element");
-        list1.add("hello3");
-        list1.add("hello3");
-        list1.add("hello3");
-        list1.add("hello3");
+        list1.add("list31");
+        list1.add("list32");
+        list1.add("list33");
+        list1.add("list31");
 
         System.out.println("Вывод списка list1: " + list1);
         System.out.println("Размер списка list1: " + list1.size());
@@ -142,7 +152,7 @@ public class Main {
         System.out.println("Размер списка list1: " + list1.size());
         System.out.println();
 
-        System.out.println("Метод addAll по индексу: " + list1.addAll(2, list2));
+        System.out.println("Метод addAll по индексу: " + list1.addAll(2, list3));
         System.out.println("Вывод списка list1, после addAll по индексу: " + list1);
         System.out.println("Размер списка list1: " + list1.size());
         System.out.println();
@@ -156,6 +166,7 @@ public class Main {
         System.out.println("Вывод списка list3: " + list3);
         System.out.println();
 
+        //noinspection SlowListContainsAll
         System.out.println("Метод containsAll: " + list1.containsAll(list3));
         System.out.println("Вывод списка list1: " + list1);
         System.out.println("Размер списка list1: " + list1.size());
