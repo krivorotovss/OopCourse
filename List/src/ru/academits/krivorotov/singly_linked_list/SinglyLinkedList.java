@@ -141,31 +141,6 @@ public class SinglyLinkedList<T> {
         head = previousItem;
     }
 
-    public SinglyLinkedList<T> copy() {
-        SinglyLinkedList<T> listCopy = new SinglyLinkedList<>();
-        listCopy.size = size;
-
-        ListItem<T> currentItem = head;
-        ListItem<T> currentItemCopy;
-        ListItem<T> previousItemCopy;
-
-        currentItemCopy = new ListItem<>(currentItem.getData());
-
-        listCopy.head = currentItemCopy;
-        currentItem = currentItem.getNext();
-        previousItemCopy = currentItemCopy;
-
-        while (currentItem != null) {
-            currentItemCopy = new ListItem<>(currentItem.getData());
-
-            previousItemCopy.setNext(currentItemCopy);
-            currentItem = currentItem.getNext();
-            previousItemCopy = currentItemCopy;
-        }
-
-        return listCopy;
-    }
-
     private ListItem<T> getItem(int index) {
         ListItem<T> currentItem = head;
 
@@ -190,5 +165,27 @@ public class SinglyLinkedList<T> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("index должен быть: 0 <= index < size,  size = " + size + ", index = " + index);
         }
+    }
+
+    public SinglyLinkedList<T> copy() {
+        if (size == 0) {
+            throw new NoSuchElementException("Список пуст, size = " + size);
+        }
+
+        SinglyLinkedList<T> listCopy = new SinglyLinkedList<>();
+        listCopy.size = size;
+        ListItem<T> currentItem = head;
+
+        listCopy.head = new ListItem<>(currentItem.getData());
+        currentItem = currentItem.getNext();
+        ListItem<T> previousItemCopy = listCopy.head;
+
+        while (currentItem != null) {
+            previousItemCopy.setNext(new ListItem<>(currentItem.getData()));
+            currentItem = currentItem.getNext();
+            previousItemCopy = previousItemCopy.getNext();
+        }
+
+        return listCopy;
     }
 }
