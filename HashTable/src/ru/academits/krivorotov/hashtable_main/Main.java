@@ -85,8 +85,6 @@ public class Main {
         System.out.println("Хэш-таблица: " + hashTable);
         System.out.println();
 
-        System.out.println(hashTable.iterator());
-
         //noinspection rawtypes
         Iterator iterator = hashTable.iterator();
         //noinspection WhileLoopReplaceableByForEach

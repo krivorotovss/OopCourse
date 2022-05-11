@@ -173,7 +173,6 @@ public class HashTable<T> implements Collection<T> {
 
         for (T item : collection) {
             add(item);
-
             modified = true;
         }
 
@@ -217,6 +216,7 @@ public class HashTable<T> implements Collection<T> {
             if (item != null) {
                 //noinspection unchecked
                 ArrayList<T> arrayList = (ArrayList<T>) item;
+
                 for (int j = 0; j < arrayList.size(); j++) {
                     if (!collection.contains(arrayList.get(j))) {
                         remove(arrayList.get(j));
