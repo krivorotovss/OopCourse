@@ -15,43 +15,13 @@ public class Main {
                 new Person("Сергей", 18),
                 new Person("Петр", 24));
 
-        System.out.println(persons);
 
-//        Collections.sort(persons, (a, b) -> a.compareTo(b));
-
-//        persons.stream()
-
-        List<Person> filtered = persons.stream() // работает пример, фильтр по имени
-                .filter(p -> p.getName().equals("Сергей"))
-                .collect(Collectors.toList());
-
-        System.out.println(filtered);
-
-
-        Map<Object, List<Person>> personsByAge = // работает пример, сортировка по возрасту
-                persons.stream().collect(Collectors.groupingBy(person -> person.getAge()));
-
-        personsByAge.forEach((age, person) ->
-                System.out.printf("age %s: %s%n", age, person));
-
-
-        List<Integer> numbers = Arrays.asList(1, 1, 2, 3, 4, 4); // работает пример, уникальные числа
-
-        List<Integer> uniqueNumbers = numbers.stream()
-                .distinct()
-                .collect(Collectors.toList());
-
-        System.out.println(uniqueNumbers);
-
-
-
-        System.out.println("==============================================");
-        //ЭТО ДЛЯ ЗАДАЧИ
+        System.out.println("Вывод списка: " + persons);
+        System.out.println();
 
         //А
         List<Person> uniqueNames1 = persons.stream()
-                .distinct()
-                .collect(Collectors.toList());
+                .distinct().toList();
 
         System.out.println("Список уникальных имен:");
 
@@ -60,56 +30,55 @@ public class Main {
 
         System.out.println();
 
-        //=================================================
-
         //Б
-        String uniqueNames3 = persons.stream()
-                .sorted()
+        String uniqueNames2 = persons.stream()
                 .distinct()
-                .map(person -> person.getName())
-                .collect(Collectors.joining(", " ));
+                .sorted()
+                .map(Person::getName)
+                .collect(Collectors.joining(", "));
 
-        System.out.println("Имена: " + uniqueNames3);
+        System.out.println("Имена: " + uniqueNames2);
         System.out.println();
 
-        //================================================
-
-
-////        List<Person> listNames = persons.stream()
-//            List<Person> listNames = persons.stream()
-//                .filter(p -> p.getAge() < 18)
-//
-////                .mapToInt((s) -> Integer.parseInt(s)).average()
-//                    .mapToInt(p -> p.getAge()).average()
-//                    .sorted()
-//                .collect(Collectors.toList());
-////                    .forEach(System.out::println);
-//
-////        listNames.getAverage();
-
+        // В
         System.out.println("Имена из списка, отсортированы по возрасту < 18:");
 
-//        listNames.forEach((person) ->
-//                System.out.printf("%s%n", person));
+        List<Person> listNames1 = persons.stream()
+                .filter(p -> p.getAge() < 18).toList();
 
-        String uniqueNames3 = persons.stream()
-                .sorted()
-                .distinct()
-                .map(person -> person.getName())
-                .collect(Collectors.joining(", " ));
-
-        System.out.println("Имена: " + uniqueNames3);
+        listNames1.forEach((person) ->
+                System.out.printf("%s%n", person));
         System.out.println();
 
-        int sumAge = persons.stream()
-                .mapToInt(age -> age.getAge())
-                .filter(age -> age < 18)
-//                .average()
-                .collect(Collectors.toList());
+        OptionalDouble listAges1 = persons.stream()
+                .filter(p -> p.getAge() < 18)
+                .mapToDouble(Person::getAge)
+                .average();
 
+        System.out.println("Средний возраст людей, возрастом до 18: " + listAges1);
+        System.out.println();
 
+        // Г
+        Map<Object, List<Person>> personsByName = // работает пример, сортировка по возрасту
+                persons.stream().collect(Collectors.groupingBy(Person::getName));
 
+        OptionalDouble listAges2 = persons.stream()
+                .mapToDouble(Person::getAge)
+                .average();
+
+        personsByName.forEach((person, age) ->
+                System.out.printf("%s: %s%n", person, listAges2));
+        System.out.println();
+
+        // Д
+        System.out.println("Имена из списка, отсортированы по возрасту от 20 до 45, в порядке убывания возраста:");
+
+        List<Person> listNames2 = persons.stream()
+                .filter(p -> p.getAge() > 20 && p.getAge() < 45)
+                .sorted(Collections.reverseOrder(Comparator.comparingInt(Person::getAge))).toList();
+
+        listNames2.forEach((person) ->
+                System.out.printf("%s%n", person));
+        System.out.println();
     }
-
-
 }
