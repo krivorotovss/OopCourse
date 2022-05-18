@@ -59,6 +59,13 @@ public class Main {
         System.out.println(list1);
         System.out.println();
 
+        SinglyLinkedList<Integer> list2 = new SinglyLinkedList<>();
+        System.out.println("list2 = " + list2);
+        System.out.println("Размер list2 = " + list2.getSize());
+
+        System.out.println("Копирование list2 (copy): " + list2.copy());
+        System.out.println();
+
         System.out.println("Копирование list1 (copy): " + list1.copy());
 
         System.out.println("list1 = " + list1);

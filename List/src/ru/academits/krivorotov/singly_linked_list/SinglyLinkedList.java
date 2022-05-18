@@ -169,13 +169,13 @@ public class SinglyLinkedList<T> {
 
     public SinglyLinkedList<T> copy() {
         if (size == 0) {
-            throw new NoSuchElementException("Список пуст, size = " + size);
+            return new SinglyLinkedList<>();
         }
 
         SinglyLinkedList<T> listCopy = new SinglyLinkedList<>();
         listCopy.size = size;
-        ListItem<T> currentItem = head;
 
+        ListItem<T> currentItem = head;
         listCopy.head = new ListItem<>(currentItem.getData());
         currentItem = currentItem.getNext();
         ListItem<T> previousItemCopy = listCopy.head;
