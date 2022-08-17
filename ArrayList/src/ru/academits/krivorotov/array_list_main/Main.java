@@ -100,8 +100,9 @@ public class Main {
         System.out.println("toArray (list1): " + Arrays.toString(list1.toArray()));
         Object[] array = new Object[2];
         System.out.println("toArray (list2): " + Arrays.toString(list2.toArray(array)));
+        System.out.println();
 
-        System.out.println("Удаление всех значений:");
+        System.out.println("Удаление всех значений clear:");
         list1.clear();
         System.out.println("Вывод списка list1: " + list1);
         System.out.println("Размер списка list1: " + list1.size());

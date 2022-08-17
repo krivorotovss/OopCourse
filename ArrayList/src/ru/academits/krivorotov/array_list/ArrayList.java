@@ -194,12 +194,9 @@ public class ArrayList<T> implements List<T> {
             return;
         }
 
-        for (int i = 0; i < size; i++) {
-            items[i] = null;
-        }
+        Arrays.fill(items, null);
 
         modCount++;
-
         size = 0;
     }
 
