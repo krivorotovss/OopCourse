@@ -90,12 +90,11 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-
         if (size == 0) {
             return "[]";
         }
 
+        StringBuilder builder = new StringBuilder();
 
         for (int i = 0; i < size; i++) {
             builder.append(" ").append(items[i]).append(",");
