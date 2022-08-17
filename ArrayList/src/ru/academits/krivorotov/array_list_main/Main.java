@@ -98,7 +98,7 @@ public class Main {
         System.out.println();
 
         System.out.println("toArray (list1): " + Arrays.toString(list1.toArray()));
-        Object[] array = new Object[5];
+        Object[] array = new Object[2];
         System.out.println("toArray (list2): " + Arrays.toString(list2.toArray(array)));
 
         System.out.println("Удаление всех значений:");
