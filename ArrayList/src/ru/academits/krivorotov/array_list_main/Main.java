@@ -20,7 +20,7 @@ public class Main {
         System.out.println("Размер списка list1: " + list1.size());
         System.out.println();
 
-        System.out.println("Метод set, вставка значения:" + list1.set(1, "element"));
+        System.out.println("Метод set, вставка значения: " + list1.set(1, "element"));
         System.out.println("Вывод списка list1: " + list1);
         System.out.println("Размер списка list1: " + list1.size());
         System.out.println();

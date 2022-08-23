@@ -1,16 +1,16 @@
 package ru.academits.krivorotov.array_list;
 
 import java.util.*;
-import java.util.function.UnaryOperator;
 
 public class ArrayList<T> implements List<T> {
+    private static final int DEFAULT_CAPACITY = 10;
     private T[] items;
     private int size;
     private int modCount;
 
     public ArrayList() {
         //noinspection unchecked
-        items = (T[]) new Object[10];
+        items = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
     public ArrayList(int initialCapacity) {
@@ -58,23 +58,25 @@ public class ArrayList<T> implements List<T> {
 
         @SuppressWarnings("unchecked") ArrayList<T> arrayList = (ArrayList<T>) o;
 
-        if (size == arrayList.size) {
-            for (int i = 0; i < size; i++) {
-                if (items[i] == null && items[i] != arrayList.items[i]) {
-                    return false;
-                } else if (items[i] == null && items[i] == arrayList.items[i]) {
-                    continue;
-                }
-
-                if (!items[i].equals(arrayList.items[i])) {
-                    return false;
-                }
-            }
-
-            return true;
+        if (size != arrayList.size) {
+            return false;
         }
 
-        return false;
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(items[i], null) && items[i] != arrayList.items[i]) {
+                return false;
+            }
+
+            if (Objects.equals(items[i], null) && items[i] == arrayList.items[i]) {
+                continue;
+            }
+
+            if (!items[i].equals(arrayList.items[i])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -82,8 +84,9 @@ public class ArrayList<T> implements List<T> {
         int prime = 31;
         int hash = 1;
 
-        for (T element : this)
+        for (T element : this) {
             hash = hash * prime + (element == null ? 0 : element.hashCode());
+        }
 
         return hash;
     }
@@ -136,7 +139,8 @@ public class ArrayList<T> implements List<T> {
     @Override
     public void add(int index, T item) {
         if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Значение index, должно быть: 0 <= index <= length, index = " + index);
+            throw new IndexOutOfBoundsException("Значение index, должно быть: 0 <= index <= size, index = "
+                    + index + ", size = " + size);
         }
 
         if (size == items.length) {
@@ -164,7 +168,8 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean addAll(int index, Collection<? extends T> collection) {
         if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Значение index, должно быть: 0 <= index <= length, index = " + index);
+            throw new IndexOutOfBoundsException("Значение index, должно быть: 0 <= index <= size, index = "
+                    + index + ", size = " + size);
         }
 
         if (collection.size() == 0) {
@@ -175,7 +180,7 @@ public class ArrayList<T> implements List<T> {
 
         System.arraycopy(items, index, items, index + collection.size(), size - index);
 
-        size = size + collection.size();
+        size += collection.size();
         int i = index;
 
         for (T item : collection) {
@@ -194,7 +199,11 @@ public class ArrayList<T> implements List<T> {
             return;
         }
 
-        Arrays.fill(items, null);
+        for (int i = 0; i < size; i++) {
+            if (!Objects.equals(items[i], null)) {
+                items[i] = null;
+            }
+        }
 
         modCount++;
         size = 0;
@@ -204,11 +213,11 @@ public class ArrayList<T> implements List<T> {
     // Другими словами, удаляет из этой коллекции все ее элементы, которые не содержатся в указанной коллекции.
     @Override
     public boolean retainAll(Collection<?> collection) {
-        boolean isModified = false;
-
         if (size == 0) {
             return false;
         }
+
+        boolean isModified = false;
 
         for (int i = 0; i < size; i++) {
             if (!collection.contains(items[i])) {
@@ -224,11 +233,11 @@ public class ArrayList<T> implements List<T> {
     // Удаляет из этого списка все его элементы, содержащиеся в указанной коллекции
     @Override
     public boolean removeAll(Collection<?> collection) {
-        boolean isModified = false;
-
-        if (size == 0) {
+        if (size == 0 || collection.isEmpty()) {
             return false;
         }
+
+        boolean isModified = false;
 
         for (int i = 0; i < size; i++) {
             if (collection.contains(items[i])) {
@@ -260,7 +269,7 @@ public class ArrayList<T> implements List<T> {
     public <E> E[] toArray(E[] array) {
         if (array.length < size) {
             //noinspection unchecked
-            return (E[]) Arrays.copyOf(items, size);
+            return (E[]) Arrays.copyOf(items, size, array.getClass());
         }
 
         //noinspection SuspiciousSystemArraycopy
@@ -308,11 +317,11 @@ public class ArrayList<T> implements List<T> {
     }
 
     private void increaseCapacity() {
-        if (size == 0) {
-            items = Arrays.copyOf(items, 10);
+        if (items.length > 0) {
+            items = Arrays.copyOf(items, items.length * 2);
+        } else {
+            items = Arrays.copyOf(items, DEFAULT_CAPACITY);
         }
-
-        items = Arrays.copyOf(items, items.length * 2);
     }
 
     public void ensureCapacity(int capacity) {
@@ -348,6 +357,7 @@ public class ArrayList<T> implements List<T> {
 
             return items[currentIndex];
         }
+
     }
 
     @Override
@@ -373,22 +383,10 @@ public class ArrayList<T> implements List<T> {
         return null;
     }
 
-    @Override
-    public Spliterator<T> spliterator() { //не нужен
-        return null;
-    }
-
-    @Override
-    public void replaceAll(UnaryOperator<T> operator) { //не нужен
-    }
-
-    @Override
-    public void sort(Comparator<? super T> c) { //не нужен
-    }
-
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Значение index, должно быть: 0 <= index < length, index = " + index);
+            throw new IndexOutOfBoundsException("Значение index, должно быть: 0 <= index < size, index = "
+                    + index + ", size = " + size);
         }
     }
 }
