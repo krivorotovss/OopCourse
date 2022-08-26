@@ -34,7 +34,7 @@ public class Main {
         System.out.println("Contains hello1: " + hashTable1.contains("hello1"));
         System.out.println();
 
-        System.out.println("remove: ");
+        System.out.println("Remove:");
         System.out.println(hashTable1.remove("5"));
         System.out.println(hashTable1.remove("6"));
         System.out.println(hashTable1.remove("hello20"));
@@ -43,7 +43,7 @@ public class Main {
         System.out.println("Хэш-таблица: " + hashTable1);
         System.out.println();
 
-        System.out.println("Clear: ");
+        System.out.println("Clear:");
         hashTable1.clear();
         System.out.println("Хэш-таблица: " + hashTable1);
         System.out.println();
@@ -57,22 +57,22 @@ public class Main {
         list2.add("list12");
         list2.add("list13");
 
-        System.out.println("AddAll: ");
+        System.out.println("AddAll:");
         System.out.println(hashTable1.addAll(list1));
         System.out.println(hashTable1.addAll(list2));
         System.out.println("Хэш-таблица: " + hashTable1);
         System.out.println();
 
-        System.out.println("ContainsAll1: ");
+        System.out.println("ContainsAll1:");
         System.out.println(hashTable1.containsAll(list1));
         System.out.println();
 
-        System.out.println("RemoveAll1: ");
+        System.out.println("RemoveAll1:");
         System.out.println(hashTable1.removeAll(list1));
         System.out.println("Хэш-таблица: " + hashTable1);
         System.out.println();
 
-        System.out.println("RemoveAll2: ");
+        System.out.println("RemoveAll2:");
         System.out.println(hashTable1.removeAll(list1));
         System.out.println("Хэш-таблица: " + hashTable1);
         System.out.println();
@@ -85,21 +85,21 @@ public class Main {
         hashTable1.add("5");
 
         System.out.println("list1 = " + list1);
-        System.out.println("AddAll: ");
+        System.out.println("AddAll:");
         System.out.println(hashTable1.addAll(list1));
         System.out.println("Хэш-таблица: " + hashTable1);
         System.out.println();
 
         System.out.println("Хэш-таблица: " + hashTable1);
         System.out.println("list1 = " + list1);
-        System.out.println("RetainAll1: ");
+        System.out.println("RetainAll1:");
         System.out.println(hashTable1.retainAll(list1));
         System.out.println("Хэш-таблица: " + hashTable1);
         System.out.println();
 
         ArrayList<String> list3 = new ArrayList<>(10);
         System.out.println("list3 = " + list3);
-        System.out.println("RetainAll2: ");
+        System.out.println("RetainAll2:");
         System.out.println(hashTable1.retainAll(list3));
         System.out.println("Хэш-таблица: " + hashTable1);
         System.out.println("hashTable.size() = " + hashTable1.size());
@@ -117,7 +117,7 @@ public class Main {
         System.out.println("Хэш-таблица: " + hashTable1);
         System.out.println();
 
-        System.out.println("Итератор: ");
+        System.out.println("Итератор:");
 
         //noinspection rawtypes
         Iterator iterator = hashTable1.iterator();
@@ -135,6 +135,5 @@ public class Main {
 
         Object[] array = new Object[15];
         System.out.println("toArray (hashTable): " + Arrays.toString(hashTable1.toArray(array)));
-        System.out.println();
     }
 }

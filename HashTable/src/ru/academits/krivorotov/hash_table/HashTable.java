@@ -4,12 +4,11 @@ import java.util.*;
 
 public class HashTable<T> implements Collection<T> {
     private final ArrayList<T>[] lists;
-    int size;
+    private int size;
     private int modCount;
 
     public HashTable() {
         this(10);
-        size = 10;
     }
 
     public HashTable(int initialCapacity) {
@@ -19,7 +18,6 @@ public class HashTable<T> implements Collection<T> {
 
         //noinspection unchecked
         lists = (ArrayList<T>[]) new ArrayList[initialCapacity];
-        size = initialCapacity;
     }
 
     @Override
@@ -39,9 +37,10 @@ public class HashTable<T> implements Collection<T> {
         }
 
         StringBuilder builder = new StringBuilder();
+        System.out.println("size = " + size);
 
-        for (int i = 0; i < size; i++) {
-            builder.append(" ").append(lists[i]).append(",");
+        for (ArrayList<T> list : lists) {
+            builder.append(" ").append(list).append(",");
         }
 
         builder.setCharAt(0, '[');
@@ -62,15 +61,13 @@ public class HashTable<T> implements Collection<T> {
     public boolean add(T item) {
         int index = getIndex(item);
 
-        ArrayList<T> arrayList = lists[index];
-
         if (lists[index] == null) {
-            arrayList = new ArrayList<>();
+            lists[index] = new ArrayList<>();
         }
 
-        lists[index] = arrayList;
-        arrayList.add(item);
+        lists[index].add(item);
         modCount++;
+        size++;
 
         return true;
     }
@@ -87,6 +84,7 @@ public class HashTable<T> implements Collection<T> {
 
         if (arrayList.remove(object)) {
             modCount++;
+            size--;
 
             return true;
         }
@@ -96,13 +94,11 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean contains(Object object) {
-        if (object == null || size == 0) {
+        if (size == 0) {
             return false;
         }
 
-        ArrayList<T> list = lists[getIndex(object)];
-
-        return list.contains(object);
+        return lists[getIndex(object)].contains(object);
     }
 
     @Override
@@ -114,18 +110,20 @@ public class HashTable<T> implements Collection<T> {
         Arrays.fill(lists, null);
 
         modCount++;
+        size = 0;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> collection) {
-        boolean isModified = false;
+        if (collection.isEmpty()) {
+            return false;
+        }
 
         for (T item : collection) {
             add(item);
-            isModified = true;
         }
 
-        return isModified;
+        return true;
     }
 
     @Override
@@ -169,13 +167,20 @@ public class HashTable<T> implements Collection<T> {
 
         for (ArrayList<T> list : lists) {
             if (list != null) {
+                int listSizeBefore = list.size();
 
                 if (list.retainAll(collection)) {
                     isModified = true;
-                    modCount++;
+                    int listSizeAfter = list.size();
+                    size -= listSizeBefore - listSizeAfter;
                 }
             }
         }
+
+        if (isModified) {
+            modCount++;
+        }
+
 
         return isModified;
     }
@@ -184,7 +189,12 @@ public class HashTable<T> implements Collection<T> {
     public Object[] toArray() {
         Object[] objects = new Object[size];
 
-        System.arraycopy(lists, 0, objects, 0, size);
+        int i = 0;
+
+        for (T item : this) {
+            objects[i] = item;
+            i++;
+        }
 
         return objects;
     }
@@ -208,16 +218,16 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new hashTableIterator();
+        return new HashTableIterator();
     }
 
-    private class hashTableIterator implements Iterator<T> {
+    private class HashTableIterator implements Iterator<T> {
         private final int startModCount = modCount;
         private int arrayIndex;
         private int listIndex;
 
         public boolean hasNext() {
-            return arrayIndex < size;
+            return arrayIndex < lists.length;
         }
 
         public T next() {
