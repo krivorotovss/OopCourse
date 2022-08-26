@@ -181,7 +181,6 @@ public class HashTable<T> implements Collection<T> {
             modCount++;
         }
 
-
         return isModified;
     }
 
