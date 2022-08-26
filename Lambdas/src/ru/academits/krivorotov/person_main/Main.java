@@ -46,7 +46,8 @@ public class Main {
         System.out.println("Список персон возрастом < 18:");
 
         List<Person> personsListBefore18Years = persons.stream()
-                .filter(p -> p.getAge() < 18).toList();
+                .filter(p -> p.getAge() < 18)
+                .toList();
 
         System.out.println(personsListBefore18Years);
         System.out.println();
@@ -77,7 +78,7 @@ public class Main {
                 .sorted(Collections.reverseOrder(Comparator.comparingInt(Person::getAge)))
                 .toList();
 
-        sortedNamesList.forEach((person) -> System.out.printf("%s%n", person));
+        sortedNamesList.forEach(person -> System.out.printf("%s%n", person));
         System.out.println();
     }
 }
