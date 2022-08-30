@@ -22,7 +22,7 @@ public class Main {
         Matrix matrix7 = new Matrix(new double[][]{{5, 4}, {1, 2}});
         Matrix matrix8 = new Matrix(new double[][]{{1, 2, 3}, {4, 5, 6}, {8, 9, 10}, {1, 2, 3}});
         Matrix matrix9 = new Matrix(new double[][]{{15, 14, 12}, {6, 7, 1}, {54, 5, 7}});
-        Matrix matrix10 = new Matrix(new double[][]{{10}, {8}});
+        Matrix matrix10 = new Matrix(new double[][]{{0, 1, 2}, {4, 5, 6}, {8, 9, 10}});
 
         System.out.println("matrix1 = " + matrix1);
         System.out.println("matrix2 = " + matrix2);
@@ -34,11 +34,11 @@ public class Main {
 
         Vector vector2 = new Vector(new double[]{0, 1, 2});
         System.out.println("Вставка вектора-строки по индексу: ");
-        matrix2.setStringVector(1, vector2);
+        matrix2.setRow(1, vector2);
         System.out.println("matrix2 = " + matrix2);
         System.out.println();
 
-        System.out.println("Получение вектора-строки по индексу = " + matrix1.getStringVector(0));
+        System.out.println("Получение вектора-строки по индексу = " + matrix1.getRow(0));
         System.out.println();
 
         System.out.println("matrix7 = " + matrix7);
@@ -75,5 +75,6 @@ public class Main {
         System.out.println();
 
         System.out.println("Определитель матрицы: " + matrix9.getDeterminant());
+        System.out.println("Определитель матрицы: " + matrix1.getDeterminant());
     }
 }
