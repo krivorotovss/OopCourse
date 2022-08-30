@@ -63,15 +63,7 @@ public class ArrayList<T> implements List<T> {
         }
 
         for (int i = 0; i < size; i++) {
-            if (Objects.equals(items[i], null) && items[i] != arrayList.items[i]) {
-                return false;
-            }
-
-            if (Objects.equals(items[i], null) && items[i] == arrayList.items[i]) {
-                continue;
-            }
-
-            if (!items[i].equals(arrayList.items[i])) {
+            if (!Objects.equals(items[i], arrayList.items[i])) {
                 return false;
             }
         }
@@ -199,11 +191,7 @@ public class ArrayList<T> implements List<T> {
             return;
         }
 
-        for (int i = 0; i < size; i++) {
-            if (!Objects.equals(items[i], null)) {
-                items[i] = null;
-            }
-        }
+        Arrays.fill(items, 0, size, null);
 
         modCount++;
         size = 0;
@@ -317,6 +305,10 @@ public class ArrayList<T> implements List<T> {
     }
 
     private void increaseCapacity() {
+        if (size == 0) {
+            return;
+        }
+
         if (items.length > 0) {
             items = Arrays.copyOf(items, items.length * 2);
         } else {
@@ -325,7 +317,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     public void ensureCapacity(int capacity) {
-        if (capacity > size) {
+        if (capacity > items.length) {
             items = Arrays.copyOf(items, capacity);
         }
     }
@@ -336,7 +328,7 @@ public class ArrayList<T> implements List<T> {
         }
     }
 
-    private class MyListIterator implements Iterator<T> {
+    private class listIterator implements Iterator<T> {
         private int currentIndex = -1;
         private final int startModCount = modCount;
 
@@ -357,28 +349,27 @@ public class ArrayList<T> implements List<T> {
 
             return items[currentIndex];
         }
-
     }
 
     @Override
     public Iterator<T> iterator() {
-        return new MyListIterator();
+        return new listIterator();
     }
 
     @Override
-    public ListIterator<T> listIterator() { //не нужен
+    public ListIterator<T> listIterator() { // Не нужен
         //noinspection ConstantConditions
         return null;
     }
 
     @Override
-    public ListIterator<T> listIterator(int index) { //не нужен
+    public ListIterator<T> listIterator(int index) { // Не нужен
         //noinspection ConstantConditions
         return null;
     }
 
     @Override
-    public List<T> subList(int fromIndex, int toIndex) { //не нужен
+    public List<T> subList(int fromIndex, int toIndex) { // Не нужен
         //noinspection ConstantConditions
         return null;
     }
