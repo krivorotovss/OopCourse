@@ -305,15 +305,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     private void increaseCapacity() {
-        if (size == 0) {
-            return;
-        }
-
-        if (items.length > 0) {
-            items = Arrays.copyOf(items, items.length * 2);
-        } else {
-            items = Arrays.copyOf(items, DEFAULT_CAPACITY);
-        }
+        items = Arrays.copyOf(items, items.length * 2);
     }
 
     public void ensureCapacity(int capacity) {
@@ -328,7 +320,7 @@ public class ArrayList<T> implements List<T> {
         }
     }
 
-    private class listIterator implements Iterator<T> {
+    private class ListIterator implements Iterator<T> {
         private int currentIndex = -1;
         private final int startModCount = modCount;
 
@@ -353,17 +345,17 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new listIterator();
+        return new ListIterator();
     }
 
     @Override
-    public ListIterator<T> listIterator() { // Не нужен
+    public java.util.ListIterator<T> listIterator() { // Не нужен
         //noinspection ConstantConditions
         return null;
     }
 
     @Override
-    public ListIterator<T> listIterator(int index) { // Не нужен
+    public java.util.ListIterator<T> listIterator(int index) { // Не нужен
         //noinspection ConstantConditions
         return null;
     }
