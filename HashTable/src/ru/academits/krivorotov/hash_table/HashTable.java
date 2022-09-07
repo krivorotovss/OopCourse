@@ -12,8 +12,8 @@ public class HashTable<T> implements Collection<T> {
     }
 
     public HashTable(int initialCapacity) {
-        if (initialCapacity < 0) {
-            throw new IllegalArgumentException("Значение initialCapacity должно быть не меньше 0, initialCapacity = " + initialCapacity);
+        if (initialCapacity <= 0) {
+            throw new IllegalArgumentException("Значение initialCapacity должно быть больше 0, initialCapacity = " + initialCapacity);
         }
 
         //noinspection unchecked
@@ -37,7 +37,6 @@ public class HashTable<T> implements Collection<T> {
         }
 
         StringBuilder builder = new StringBuilder();
-        System.out.println("size = " + size);
 
         for (ArrayList<T> list : lists) {
             builder.append(" ").append(list).append(",");
@@ -76,13 +75,7 @@ public class HashTable<T> implements Collection<T> {
     public boolean remove(Object object) {
         int index = getIndex(object);
 
-        if (lists[index] == null) {
-            return false;
-        }
-
-        ArrayList<T> arrayList = lists[index];
-
-        if (arrayList.remove(object)) {
+        if (lists[index] != null && lists[index].remove(object)) {
             modCount++;
             size--;
 
@@ -94,11 +87,9 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean contains(Object object) {
-        if (size == 0) {
-            return false;
-        }
+        int index = getIndex(object);
 
-        return lists[getIndex(object)].contains(object);
+        return lists[index] != null && lists[index].contains(object);
     }
 
     @Override
@@ -224,9 +215,10 @@ public class HashTable<T> implements Collection<T> {
         private final int startModCount = modCount;
         private int arrayIndex;
         private int listIndex;
+        private int count;
 
         public boolean hasNext() {
-            return arrayIndex < lists.length;
+            return count < size;
         }
 
         public T next() {
@@ -238,12 +230,13 @@ public class HashTable<T> implements Collection<T> {
                 throw new ConcurrentModificationException("Изменение коллекции недопустимо");
             }
 
-            if (lists[arrayIndex] == null || lists[arrayIndex].size() == 0) { //если лист null или размер 0, счетчик массива +1
+            while (lists[arrayIndex] == null || lists[arrayIndex].size() == 0) { //если лист null или размер 0, счетчик массива +1
                 arrayIndex++;
             }
 
             T currentItem = lists[arrayIndex].get(listIndex);
             listIndex++;
+            count++;
 
             if (listIndex == lists[arrayIndex].size()) { // после прохода листа до конца, сбрасываем счетчик листа, +1 счетчик массива
                 arrayIndex++;
