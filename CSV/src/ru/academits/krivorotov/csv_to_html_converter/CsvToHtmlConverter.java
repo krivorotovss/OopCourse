@@ -8,12 +8,12 @@ public class CsvToHtmlConverter {
              PrintWriter writer = new PrintWriter(new FileWriter(pathToOutputFile))) {
             writer.println("<!DOCTYPE html>");
             writer.println("<html lang=\"ru\">");
-            writer.println("\t" + "<head>");
-            writer.println("\t\t" + "<meta charset=\"UTF-8\" />");
-            writer.println("\t\t" + "<title>Страница</title>");
-            writer.println("\t" + "<head>");
-            writer.println("\t" + "<body>");
-            writer.println("\t\t" + "<table>");
+            writer.println("\t<head>");
+            writer.println("\t\t<meta charset=\"UTF-8\" />");
+            writer.println("\t\t<title>Страница</title>");
+            writer.println("\t</head>");
+            writer.println("\t<body>");
+            writer.println("\t\t<table>");
 
             String line;
 
@@ -25,8 +25,8 @@ public class CsvToHtmlConverter {
                         continue;
                     }
 
-                    writer.println("\t\t\t" + "<tr>");
-                    writer.write("\t\t\t\t" + "<td>");
+                    writer.println("\t\t\t<tr>");
+                    writer.write("\t\t\t\t<td>");
                 }
 
                 for (int i = 0; i < line.length(); ++i) {
@@ -46,7 +46,7 @@ public class CsvToHtmlConverter {
                     } else if (symbol == ',') {
                         if (!isDataInQuotes) {
                             writer.println("</td>");
-                            writer.write("\t\t\t\t" + "<td>");
+                            writer.write("\t\t\t\t<td>");
                         } else {
                             writer.write(symbol);
                         }
@@ -63,14 +63,14 @@ public class CsvToHtmlConverter {
 
                 if (!isDataInQuotes) {
                     writer.println("</td>");
-                    writer.println("\t\t\t" + "</tr>");
+                    writer.println("\t\t\t</tr>");
                 } else {
                     writer.write("<br/>");
                 }
             }
 
-            writer.println("\t\t" + "</table>");
-            writer.println("\t" + "</body>");
+            writer.println("\t\t</table>");
+            writer.println("\t</body>");
             writer.print("</html>");
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден");

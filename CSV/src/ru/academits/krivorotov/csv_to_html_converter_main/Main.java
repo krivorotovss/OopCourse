@@ -4,8 +4,15 @@ import ru.academits.krivorotov.csv_to_html_converter.CsvToHtmlConverter;
 
 public class Main {
     public static void main(String[] args) {
-        String pathToInputFile = "CSV/src/example.csv";
-        String pathToOutputFile = "CSV/src/output.html";
+        if (args.length != 2) {
+            System.out.println("Необходимо передать 2 аргумента: " + System.lineSeparator() +
+                    "1.Путь к файлу с расширением csv, который нужно конвертировать; " + System.lineSeparator() +
+                    "2.Путь к файлу с расширением html, для вывода результата.");
+            return;
+        }
+
+        String pathToInputFile = args[0];
+        String pathToOutputFile = args[1];
 
         CsvToHtmlConverter converter = new CsvToHtmlConverter();
         converter.convertAndWriteHtmlFile(pathToInputFile, pathToOutputFile);
