@@ -215,10 +215,10 @@ public class HashTable<T> implements Collection<T> {
         private final int startModCount = modCount;
         private int arrayIndex;
         private int listIndex;
-        private int count;
+        private int passedElementsCount;
 
         public boolean hasNext() {
-            return count < size;
+            return passedElementsCount < size;
         }
 
         public T next() {
@@ -230,13 +230,13 @@ public class HashTable<T> implements Collection<T> {
                 throw new ConcurrentModificationException("Изменение коллекции недопустимо");
             }
 
-            while (lists[arrayIndex] == null || lists[arrayIndex].size() == 0) { //если лист null или размер 0, счетчик массива +1
+            while (lists[arrayIndex] == null || lists[arrayIndex].isEmpty()) { //если лист null или размер 0, счетчик массива +1
                 arrayIndex++;
             }
 
             T currentItem = lists[arrayIndex].get(listIndex);
             listIndex++;
-            count++;
+            passedElementsCount++;
 
             if (listIndex == lists[arrayIndex].size()) { // после прохода листа до конца, сбрасываем счетчик листа, +1 счетчик массива
                 arrayIndex++;
