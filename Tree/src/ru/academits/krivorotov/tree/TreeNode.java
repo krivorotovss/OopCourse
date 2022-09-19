@@ -1,6 +1,6 @@
 package ru.academits.krivorotov.tree;
 
-public class TreeNode<T> {
+class TreeNode<T> {
     private TreeNode<T> right;
     private TreeNode<T> left;
     private final T data;
@@ -12,10 +12,6 @@ public class TreeNode<T> {
     public T getData() {
         return data;
     }
-
-//    public void setData(T data) {
-//        this.data = data;
-//    }
 
     public TreeNode<T> getRight() {
         return right;
