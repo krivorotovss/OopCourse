@@ -42,8 +42,11 @@ public class ArrayList<T> implements List<T> {
     @Override
     public T set(int index, T item) {
         checkIndex(index);
+        T oldItem = items[index];
 
-        return items[index] = item;
+        items[index] = item;
+
+        return oldItem;
     }
 
     @Override
@@ -135,6 +138,10 @@ public class ArrayList<T> implements List<T> {
                     + index + ", size = " + size);
         }
 
+        if(items.length == 0) {
+            ensureCapacity(DEFAULT_CAPACITY);
+        }
+
         if (size == items.length) {
             increaseCapacity();
         }
@@ -164,7 +171,7 @@ public class ArrayList<T> implements List<T> {
                     + index + ", size = " + size);
         }
 
-        if (collection.size() == 0) {
+        if (collection.isEmpty()) {
             return false;
         }
 
@@ -250,9 +257,9 @@ public class ArrayList<T> implements List<T> {
         return true;
     }
 
-    //    <T> T[] toArray(T[] a)
-    //    Возвращает массив, содержащий все элементы в этом списке в правильной последовательности (от первого до последнего элемента);
-    //    тип возвращаемого массива во время выполнения соответствует указанному массиву.
+    // <T> T[] toArray(T[] a)
+    // Возвращает массив, содержащий все элементы в этом списке в правильной последовательности (от первого до последнего элемента);
+    // Тип возвращаемого массива во время выполнения соответствует указанному массиву.
     @Override
     public <E> E[] toArray(E[] array) {
         if (array.length < size) {
@@ -320,7 +327,7 @@ public class ArrayList<T> implements List<T> {
         }
     }
 
-    private class ListIterator implements Iterator<T> {
+    private class ArrayListIterator implements Iterator<T> {
         private int currentIndex = -1;
         private final int startModCount = modCount;
 
@@ -345,17 +352,17 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new ListIterator();
+        return new ArrayListIterator();
     }
 
     @Override
-    public java.util.ListIterator<T> listIterator() { // Не нужен
+    public ListIterator<T> listIterator() { // Не нужен
         //noinspection ConstantConditions
         return null;
     }
 
     @Override
-    public java.util.ListIterator<T> listIterator(int index) { // Не нужен
+    public ListIterator<T> listIterator(int index) { // Не нужен
         //noinspection ConstantConditions
         return null;
     }

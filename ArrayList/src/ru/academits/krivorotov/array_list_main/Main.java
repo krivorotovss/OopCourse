@@ -20,7 +20,7 @@ public class Main {
         System.out.println("Размер списка list1: " + list1.size());
         System.out.println();
 
-        System.out.println("Метод set, вставка значения: " + list1.set(1, "element"));
+        System.out.println("Метод set, вставка значения вместо: " + list1.set(1, "element"));
         System.out.println("Вывод списка list1: " + list1);
         System.out.println("Размер списка list1: " + list1.size());
         System.out.println();
@@ -173,6 +173,19 @@ public class Main {
         System.out.println("Размер списка list1: " + list1.size());
         System.out.println("Вывод списка list3: " + list3);
         System.out.println("Размер списка list3: " + list3.size());
+        System.out.println();
+
+        ArrayList<String> list4 = new ArrayList<>(0);
+
+        System.out.println("Вывод списка list4: " + list4);
+        System.out.println("Размер списка list4: " + list4.size());
+        System.out.println();
+
+        list4.add("hello");
+        list4.add("hello");
+
+        System.out.println("Вывод списка list4: " + list4);
+        System.out.println("Размер списка list4: " + list4.size());
         System.out.println();
     }
 }
