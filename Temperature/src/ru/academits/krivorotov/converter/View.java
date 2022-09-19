@@ -4,33 +4,42 @@ import javax.swing.*;
 import java.awt.*;
 
 public class View {
-    public JLabel outputTemperatureLabel;
-    private final JTextField inputTemperatureTextField;
+    public JButton okButton;
+    public JTextField inputTemperatureTextField;
+    public JComboBox<String> inputScalesComboBox;
+    public JComboBox<String> outputScalesComboBox;
     public JLabel outputResultLabel;
-    private final JTextField inputScaleTextField;
-    private final JButton outputCelsiusButton;
-    private final JButton outputFahrenheitButton;
-    private final JButton outputKelvinButton;
+    public JFrame frame;
 
     public View(String title) {
         // Create the principal frame
-        JFrame frame = new JFrame(title);
+        frame = new JFrame(title);
         frame.getContentPane().setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 200);
+        frame.setSize(600, 250);
+        frame.setMinimumSize(new Dimension(600, 250));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        String[] items = {
+                "Градусы Цельсия",
+                "Градусы Фаренгейта",
+                "Градусы Кельвина"
+        };
+
         // Create UI elements
         JLabel inputTemperatureLabel = new JLabel("Введите температуру: ");
-        outputTemperatureLabel = new JLabel("Результат: ");
-        JLabel inputScaleLabel = new JLabel("Выберите шкалу (C,F,K): ");
+        JLabel inputScaleLabel = new JLabel("Выберите исходную шкалу: ");
+        JLabel outputScaleLabel = new JLabel("Выберите шкалу для перевода: ");
+        JLabel outputTemperatureLabel = new JLabel("Результат: ");
+
         inputTemperatureTextField = new JTextField();
+        inputScalesComboBox = new JComboBox<>(items);
+        outputScalesComboBox = new JComboBox<>(items);
         outputResultLabel = new JLabel("zero");
-        inputScaleTextField = new JTextField();
-        outputCelsiusButton = new JButton("Перевести в C");
-        outputFahrenheitButton = new JButton("Перевести в F");
-        outputKelvinButton = new JButton("Перевести в K");
+
+        okButton = new JButton("Перевести");
+        okButton.setPreferredSize(new Dimension(150, 30));
 
         // Add UI elements to frame
         GroupLayout layout = new GroupLayout(frame.getContentPane());
@@ -41,57 +50,34 @@ public class View {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(inputTemperatureLabel)
                                 .addComponent(inputScaleLabel)
+                                .addComponent(outputScaleLabel)
                                 .addComponent(outputTemperatureLabel))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(inputTemperatureTextField)
-                                .addComponent(inputScaleTextField)
-                                .addComponent(outputResultLabel))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(outputCelsiusButton)
-                                .addComponent(outputFahrenheitButton)
-                                .addComponent(outputKelvinButton))
+                                .addComponent(inputScalesComboBox)
+                                .addComponent(outputScalesComboBox)
+                                .addComponent(outputResultLabel)
+                                .addComponent(okButton))
         );
 
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(inputTemperatureLabel)
-                                .addComponent(inputTemperatureTextField)
-                                .addComponent(outputCelsiusButton))
+                                .addComponent(inputTemperatureTextField))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(inputScaleLabel)
-                                .addComponent(inputScaleTextField)
-                                .addComponent(outputFahrenheitButton))
+                                .addComponent(inputScalesComboBox))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(outputScaleLabel)
+                                .addComponent(outputScalesComboBox))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(outputTemperatureLabel)
-                                .addComponent(outputResultLabel)
-                                .addComponent(outputKelvinButton))
+                                .addComponent(outputResultLabel))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(okButton))
         );
 
         frame.getContentPane().setLayout(layout);
-    }
-
-    public JTextField getInputTemperatureTextField() {
-        return inputTemperatureTextField;
-    }
-
-    public void setOutputResultLabel(String outputResultLabel) {
-        this.outputResultLabel.setText(outputResultLabel);
-    }
-
-    public JButton getOutputCelsiusButton() {
-        return outputCelsiusButton;
-    }
-
-    public JButton getOutputFahrenheitButton() {
-        return outputFahrenheitButton;
-    }
-
-    public JButton getOutputKelvinButton() {
-        return outputKelvinButton;
-    }
-
-    public JTextField getInputScaleTextField() {
-        return inputScaleTextField;
     }
 }
