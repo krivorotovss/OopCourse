@@ -6,8 +6,8 @@ import java.awt.*;
 public class View {
     public JButton okButton;
     public JTextField inputTemperatureTextField;
-    public JComboBox<String> inputScalesComboBox;
-    public JComboBox<String> outputScalesComboBox;
+    public JComboBox<Scale> inputScalesComboBox;
+    public JComboBox<Scale> outputScalesComboBox;
     public JLabel outputResultLabel;
     public JFrame frame;
 
@@ -21,19 +21,23 @@ public class View {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        String[] items = {
-                "Градусы Цельсия",
-                "Градусы Фаренгейта",
-                "Градусы Кельвина"
+        CelsiusScale celsiusScale = new CelsiusScale();
+        FahrenheitScale fahrenheitScale = new FahrenheitScale();
+        KelvinScale kelvinScale = new KelvinScale();
+
+        Scale[] items = {
+                celsiusScale,
+                fahrenheitScale,
+                kelvinScale
         };
 
-        // Create UI elements
+        // Create UI elements (здесь элементы по порядку их отображения на форме)
         JLabel inputTemperatureLabel = new JLabel("Введите температуру: ");
         JLabel inputScaleLabel = new JLabel("Выберите исходную шкалу: ");
         JLabel outputScaleLabel = new JLabel("Выберите шкалу для перевода: ");
         JLabel outputTemperatureLabel = new JLabel("Результат: ");
 
-        inputTemperatureTextField = new JTextField();
+        inputTemperatureTextField = new JTextField("0");
         inputScalesComboBox = new JComboBox<>(items);
         outputScalesComboBox = new JComboBox<>(items);
         outputResultLabel = new JLabel("zero");
