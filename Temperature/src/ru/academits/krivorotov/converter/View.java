@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class View {
-    public JButton okButton;
-    public JTextField inputTemperatureTextField;
-    public JComboBox<Scale> inputScalesComboBox;
-    public JComboBox<Scale> outputScalesComboBox;
-    public JLabel outputResultLabel;
-    public JFrame frame;
+    private final JButton okButton;
+    private final JTextField inputTemperatureTextField;
+    private final JComboBox<Scale> inputScalesComboBox;
+    private final JComboBox<Scale> outputScalesComboBox;
+    private final JLabel outputResultLabel;
+    private final JFrame frame;
 
     public View(String title) {
         // Create the principal frame
@@ -83,5 +83,29 @@ public class View {
         );
 
         frame.getContentPane().setLayout(layout);
+    }
+
+    public JButton getOkButton() {
+        return okButton;
+    }
+
+    public JTextField getInputTemperatureTextField() {
+        return inputTemperatureTextField;
+    }
+
+    public JComboBox<Scale> getInputScalesComboBox() {
+        return inputScalesComboBox;
+    }
+
+    public JComboBox<Scale> getOutputScalesComboBox() {
+        return outputScalesComboBox;
+    }
+
+    public JLabel getOutputResultLabel() {
+        return outputResultLabel;
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 }
