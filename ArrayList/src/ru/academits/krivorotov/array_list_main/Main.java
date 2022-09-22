@@ -183,6 +183,16 @@ public class Main {
 
         list4.add("hello");
         list4.add("hello");
+        list4.add("hello");
+        list4.add("hello");
+        list4.add("hello");
+        list4.add("hello");
+        list4.add("hello");
+        list4.add("hello");
+        list4.add("hello");
+        list4.add("hello");
+        list4.add("hello");
+        list4.add("hello");
 
         System.out.println("Вывод списка list4: " + list4);
         System.out.println("Размер списка list4: " + list4.size());

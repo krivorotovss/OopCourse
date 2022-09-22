@@ -138,10 +138,6 @@ public class ArrayList<T> implements List<T> {
                     + index + ", size = " + size);
         }
 
-        if(items.length == 0) {
-            ensureCapacity(DEFAULT_CAPACITY);
-        }
-
         if (size == items.length) {
             increaseCapacity();
         }
@@ -312,7 +308,12 @@ public class ArrayList<T> implements List<T> {
     }
 
     private void increaseCapacity() {
-        items = Arrays.copyOf(items, items.length * 2);
+        if (items.length > 0) {
+            items = Arrays.copyOf(items, items.length * 2);
+        } else {
+            //noinspection unchecked
+            items = (T[]) new Object[DEFAULT_CAPACITY];
+        }
     }
 
     public void ensureCapacity(int capacity) {
