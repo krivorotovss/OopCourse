@@ -30,8 +30,7 @@ public class Main {
         System.out.println();
 
         System.out.println("Поиск 8: " + numbers1.contains(8));
-        System.out.println("Удалить 8:");
-        numbers1.remove(8);
+        System.out.println("Удалить 8: " + numbers1.remove(8));
         System.out.println("Поиск 8: " + numbers1.contains(8));
         System.out.println("Количество элементов numbers1 = " + numbers1.getCount());
         System.out.println();
@@ -41,9 +40,9 @@ public class Main {
         System.out.println();
 
         System.out.println("Поиск 15: " + numbers1.contains(15));
-        System.out.println("Удалить 15:");
-        numbers1.remove(15);
+        System.out.println("Удалить 15: " + numbers1.remove(15));
         System.out.println("Поиск 15: " + numbers1.contains(15));
+        System.out.println("Удалить 15: " + numbers1.remove(15));
 
         System.out.println("Количество элементов numbers 1 = " + numbers1.getCount());
         System.out.println();
@@ -104,8 +103,7 @@ public class Main {
         System.out.println("Количество элементов numbers2 = " + numbers2.getCount());
 
         System.out.println("Поиск 15: " + numbers2.contains(15));
-        System.out.println("Удалить 15:");
-        numbers2.remove(15);
+        System.out.println("Удалить 15: " + numbers2.remove(15));
         System.out.println("Поиск 15: " + numbers2.contains(15));
         System.out.println();
 
@@ -118,8 +116,7 @@ public class Main {
         Tree<Integer> numbers3 = new Tree<>();
 
         System.out.println("Поиск 15: " + numbers3.contains(15));
-        System.out.println("Удалить 15:");
-        numbers3.remove(15);
+        System.out.println("Удалить 15: " + numbers3.remove(15));
         System.out.println("Поиск 15: " + numbers3.contains(15));
         System.out.println();
 
@@ -139,8 +136,7 @@ public class Main {
         System.out.println("Количество элементов numbers3 = " + numbers3.getCount());
         System.out.println();
 
-        numbers3.remove(8);
-        System.out.println("Удалить 8:");
+        System.out.println("Удалить 8: " + numbers3.remove(8));
         System.out.println("Обход в ширину numbers3:");
         numbers3.widthTraversal(consumer);
         System.out.println();
@@ -153,16 +149,14 @@ public class Main {
         System.out.println("Количество элементов numbers2 = " + numbers2.getCount());
         System.out.println();
 
-        numbers2.remove(12);
-        System.out.println("Удалить 12:");
+        System.out.println("Удалить 12: " + numbers2.remove(12));
         System.out.println("Обход в ширину numbers2:");
         numbers2.widthTraversal(consumer);
         System.out.println();
         System.out.println("Количество элементов numbers2 = " + numbers2.getCount());
         System.out.println();
 
-        numbers2.remove(5);
-        System.out.println("Удалить 5:");
+        System.out.println("Удалить 5: " + numbers2.remove(5));
         System.out.println("Обход в ширину numbers2:");
         numbers2.widthTraversal(consumer);
         System.out.println();

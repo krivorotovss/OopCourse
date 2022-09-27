@@ -81,11 +81,13 @@ public class Tree<T> {
         TreeNode<T> currentNode = root;
 
         while (true) {
-            if (compare(data, currentNode.getData()) == 0) {
+            int comparisonValues = compare(data, currentNode.getData());
+
+            if (comparisonValues == 0) {
                 return true;
             }
 
-            if (compare(data, currentNode.getData()) < 0) {
+            if (comparisonValues < 0) {
                 if (currentNode.getLeft() != null) {
                     currentNode = currentNode.getLeft();
                 } else {
@@ -101,15 +103,10 @@ public class Tree<T> {
         }
     }
 
-    public void remove(T data) {
+    public boolean remove(T data) {
         if (root == null) {
-            return;
+            return false;
         }
-
-        TreeNode<T> currentNode = root;
-        TreeNode<T> parentNode = null;
-
-        boolean isCurrentLeftChild = false;
 
         if (compare(data, root.getData()) == 0) { // Нужно проверить есть ли правый сын
             if (root.getRight() != null) { // Если правый сын есть
@@ -125,29 +122,36 @@ public class Tree<T> {
 
                 count--;
 
-                return;
+                return true;
             }
 
-            root = root.getLeft(); // Если нет правого сына у рута, то рут - левый сын
+            root = root.getLeft(); // Если нет правого сына у корня, то корень - левый сын
             count--;
 
-            return;
+            return true;
         }
 
+        TreeNode<T> currentNode = root;
+        TreeNode<T> parentNode = null;
+
+        boolean isCurrentLeftChild = false;
+
         while (true) {
-            if (compare(data, currentNode.getData()) == 0 && parentNode != null) {
+            int comparisonValues = compare(data, currentNode.getData());
+
+            if (comparisonValues == 0) {
                 removeNode(currentNode, parentNode, isCurrentLeftChild);
-                return;
+                return true;
             }
 
-            if (compare(data, currentNode.getData()) < 0) { // Искомое значение слева от текущего
+            if (comparisonValues < 0) { // Искомое значение слева от текущего
                 if (currentNode.getLeft() != null) {
                     isCurrentLeftChild = true;
 
                     parentNode = currentNode;
                     currentNode = currentNode.getLeft();
                 } else {
-                    return;
+                    return false;
                 }
             } else {
                 if (currentNode.getRight() != null) { // Искомое значение справа от текущего
@@ -156,7 +160,7 @@ public class Tree<T> {
                     parentNode = currentNode;
                     currentNode = currentNode.getRight();
                 } else {
-                    return;
+                    return false;
                 }
             }
         }
@@ -175,21 +179,19 @@ public class Tree<T> {
             return;
         }
 
-        if (currentNode.getLeft() == null || currentNode.getRight() == null) { // Удаляется узел с 1 потомком
-            if (currentNode.getLeft() == null) { // Нет левого внука
-                if (isCurrentLeftChild) {
-                    parentNode.setLeft(currentNode.getRight());
-                } else {
-                    parentNode.setRight(currentNode.getRight());
-                }
-            } else { // Нет правого внука
-                if (isCurrentLeftChild) {
-                    parentNode.setLeft(currentNode.getLeft());
-                } else {
-                    parentNode.setRight(currentNode.getLeft());
-                }
+        // Удаляется узел с 1 потомком
+        if (currentNode.getLeft() == null) { // Нет левого внука
+            if (isCurrentLeftChild) {
+                parentNode.setLeft(currentNode.getRight());
+            } else {
+                parentNode.setRight(currentNode.getRight());
             }
-
+        } else if (currentNode.getRight() == null) { // Нет правого внука
+            if (isCurrentLeftChild) {
+                parentNode.setLeft(currentNode.getLeft());
+            } else {
+                parentNode.setRight(currentNode.getLeft());
+            }
         } else { // Удаление узла с 2-мя потомками
             searchMinNodeAndChangeNode(currentNode, parentNode);
         }
