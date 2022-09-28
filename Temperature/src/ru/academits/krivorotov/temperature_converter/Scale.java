@@ -1,4 +1,4 @@
-package ru.academits.krivorotov.converter;
+package ru.academits.krivorotov.temperature_converter;
 
 public interface Scale {
     double convertToCelsius(double temperature);
