@@ -1,11 +1,13 @@
-package ru.academits.krivorotov.temperature_converter;
+package ru.academits.krivorotov.temperature.model.converter;
+
+import ru.academits.krivorotov.temperature.model.scales.Scale;
 
 import java.util.List;
 
-public class Converter implements IConverter {
+public class TemperatureConverter implements Converter {
     private final List<Scale> scales;
 
-    public Converter(List<Scale> listScale) {
+    public TemperatureConverter(List<Scale> listScale) {
         scales = listScale;
     }
 

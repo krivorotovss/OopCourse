@@ -1,6 +1,7 @@
-package ru.academits.krivorotov.view;
+package ru.academits.krivorotov.temperature.view;
 
-import ru.academits.krivorotov.temperature_converter.*;
+import ru.academits.krivorotov.temperature.model.converter.Converter;
+import ru.academits.krivorotov.temperature.model.scales.Scale;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,9 +12,9 @@ public class View {
     private JComboBox<Object> outputScalesComboBox;
     private JLabel outputResultLabel;
     private JFrame frame;
-    private final IConverter converter;
+    private final Converter converter;
 
-    public View(IConverter converter) {
+    public View(Converter converter) {
         this.converter = converter;
     }
 

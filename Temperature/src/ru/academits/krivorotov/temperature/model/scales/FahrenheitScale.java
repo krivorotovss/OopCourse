@@ -1,4 +1,4 @@
-package ru.academits.krivorotov.temperature_converter;
+package ru.academits.krivorotov.temperature.model.scales;
 
 public class FahrenheitScale implements Scale {
     @Override
