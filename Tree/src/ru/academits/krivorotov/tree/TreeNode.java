@@ -17,12 +17,12 @@ class TreeNode<T> {
         return left;
     }
 
-    public TreeNode<T> getRight() {
-        return right;
-    }
-
     public void setLeft(TreeNode<T> left) {
         this.left = left;
+    }
+
+    public TreeNode<T> getRight() {
+        return right;
     }
 
     public void setRight(TreeNode<T> right) {

@@ -4,12 +4,9 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class Tree<T> {
-    private Comparator<? super T> comparator;
+    private final Comparator<? super T> comparator;
     private TreeNode<T> root;
     private int count;
-
-    public Tree() {
-    }
 
     public Tree(Comparator<? super T> comparator) {
         this.comparator = comparator;
@@ -81,13 +78,13 @@ public class Tree<T> {
         TreeNode<T> currentNode = root;
 
         while (true) {
-            int comparisonValues = compare(data, currentNode.getData());
+            int comparisonResult = compare(data, currentNode.getData());
 
-            if (comparisonValues == 0) {
+            if (comparisonResult == 0) {
                 return true;
             }
 
-            if (comparisonValues < 0) {
+            if (comparisonResult < 0) {
                 if (currentNode.getLeft() != null) {
                     currentNode = currentNode.getLeft();
                 } else {
@@ -110,16 +107,7 @@ public class Tree<T> {
 
         if (compare(data, root.getData()) == 0) { // Нужно проверить есть ли правый сын
             if (root.getRight() != null) { // Если правый сын есть
-                TreeNode<T> minNode = searchMinNodeAndChangeNode(root, null);
-                TreeNode<T> oldRoot = root;
-
-                root = minNode;
-                minNode.setLeft(oldRoot.getLeft());
-
-                if (minNode.getRight() == null) {
-                    minNode.setRight(oldRoot.getRight());
-                }
-
+                root = searchMinNodeAndChangeNode(root, null);
                 count--;
 
                 return true;
@@ -137,14 +125,14 @@ public class Tree<T> {
         boolean isCurrentLeftChild = false;
 
         while (true) {
-            int comparisonValues = compare(data, currentNode.getData());
+            int comparisonResult = compare(data, currentNode.getData());
 
-            if (comparisonValues == 0) {
+            if (comparisonResult == 0) {
                 removeNode(currentNode, parentNode, isCurrentLeftChild);
                 return true;
             }
 
-            if (comparisonValues < 0) { // Искомое значение слева от текущего
+            if (comparisonResult < 0) { // Искомое значение слева от текущего
                 if (currentNode.getLeft() != null) {
                     isCurrentLeftChild = true;
 
@@ -197,52 +185,6 @@ public class Tree<T> {
         }
 
         count--;
-    }
-
-    private TreeNode<T> searchMinNodeAndChangeNode(TreeNode<T> deletedNode, TreeNode<T> parentNode) {
-        TreeNode<T> currentNode = deletedNode;
-        TreeNode<T> nextNode = deletedNode.getRight();
-        TreeNode<T> startParentNode = parentNode;
-
-        int count = 0;
-
-        while (nextNode != null) { // Ищем минимальный узел в правом поддереве
-            parentNode = currentNode;
-            currentNode = nextNode;
-            nextNode = currentNode.getLeft();
-            count++;
-        }
-
-        if (count == 1) { // Если в правом поддереве нет левого сына, то текущий узел и есть минимальный
-            if (startParentNode == null) { // Если удаляется root (у него нет родителя)
-                currentNode.setLeft(deletedNode.getLeft()); // Назначает ссылку слева от корня, для текущего узла
-                currentNode.setRight(currentNode.getRight()); // Назначает ссылку справа от корня, для текущего узла
-
-                return currentNode;
-            }
-
-            if (compare(currentNode.getData(), startParentNode.getData()) < 0) { // Текущий узел слева от родителя, если true
-                startParentNode.setLeft(currentNode);
-            } else { // Иначе справа
-                startParentNode.setRight(currentNode);
-            }
-
-            currentNode.setLeft(deletedNode.getLeft());
-        }
-
-        if (currentNode.getRight() == null) {
-            parentNode.setLeft(null); // Если минимальный узел лист, то ссылок для передачи нет, удаляем ссылку у родителя
-        } else {
-            parentNode.setLeft(currentNode.getRight()); // Передаем правое поддерево от минимального узла к родителю мин узла
-            currentNode.setRight(deletedNode.getRight()); // Передаем минимальному узлу ссылку на правое поддерево, удаляемого узла
-            currentNode.setLeft(deletedNode.getLeft()); // Передаем минимальному узлу ссылку на левое поддерево, удаляемого узла
-
-            if (startParentNode != null) {
-                startParentNode.setRight(currentNode);
-            }
-        }
-
-        return currentNode;
     }
 
     public void widthTraversal(Consumer<T> consumer) {
@@ -306,5 +248,48 @@ public class Tree<T> {
                 stack.addFirst(currentNode.getLeft());
             }
         }
+    }
+
+    private TreeNode<T> searchMinNodeAndChangeNode(TreeNode<T> deletedNode, TreeNode<T> deletedNodeParentNode) {
+        TreeNode<T> minNode = deletedNode.getRight(); // Минимальный узел в правом поддереве
+        TreeNode<T> minNodeParentNode = deletedNode; // Родитель минимального узла
+
+        if (minNode.getLeft() == null) { // Если нет левой ветки в правом поддереве, он и есть минимальный узел
+            minNode.setLeft(deletedNode.getLeft());
+
+            if (deletedNodeParentNode != null) {
+                if (compare(deletedNode.getData(), deletedNodeParentNode.getData()) < 0) { // Удаляемый узел слева, если true
+                    deletedNodeParentNode.setLeft(minNode);
+                } else {
+                    deletedNodeParentNode.setRight(minNode);
+                }
+            }
+
+            return minNode;
+        }
+
+        while (minNode.getLeft() != null) { // Поиск минимального узла
+            minNodeParentNode = minNode;
+            minNode = minNode.getLeft();
+        }
+
+        if (minNode.getRight() == null) { // Случай, когда нет правого сына
+            minNodeParentNode.setLeft(null);
+        } else {
+            minNodeParentNode.setLeft(minNode.getRight());
+        }
+
+        if (deletedNodeParentNode != null) {
+            if (compare(deletedNode.getData(), deletedNodeParentNode.getData()) < 0) { // Удаляемый узел слева, если true
+                deletedNodeParentNode.setLeft(minNode);
+            } else {
+                deletedNodeParentNode.setRight(minNode);
+            }
+        }
+
+        minNode.setLeft(deletedNode.getLeft());
+        minNode.setRight(deletedNode.getRight());
+
+        return minNode;
     }
 }

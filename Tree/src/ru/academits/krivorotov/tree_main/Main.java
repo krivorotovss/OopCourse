@@ -7,7 +7,23 @@ import java.util.function.Consumer;
 
 public class Main {
     public static void main(String[] args) {
-        Tree<Integer> numbers1 = new Tree<>();
+        Comparator<Integer> comparator = (number1, number2) -> {
+            if (number1 == null) {
+                if (number2 == null) {
+                    return 0;
+                }
+
+                return -1;
+            }
+
+            if (number2 == null) {
+                return 1;
+            }
+
+            return number1.compareTo(number2);
+        };
+
+        Tree<Integer> numbers1 = new Tree<>(comparator);
 
         numbers1.add(8);
         numbers1.add(3);
@@ -60,22 +76,6 @@ public class Main {
         System.out.println();
         System.out.println();
 
-        Comparator<Integer> comparator = (number1, number2) -> {
-            if (number1 == null) {
-                if (number2 == null) {
-                    return 0;
-                }
-
-                return -1;
-            }
-
-            if (number2 == null) {
-                return 1;
-            }
-
-            return number1.compareTo(number2);
-        };
-
         Tree<Integer> numbers2 = new Tree<>(comparator);
 
         numbers2.add(8);
@@ -102,9 +102,9 @@ public class Main {
 
         System.out.println("Количество элементов numbers2 = " + numbers2.getCount());
 
-        System.out.println("Поиск 15: " + numbers2.contains(15));
-        System.out.println("Удалить 15: " + numbers2.remove(15));
-        System.out.println("Поиск 15: " + numbers2.contains(15));
+        System.out.println("numbers2 поиск 15: " + numbers2.contains(15));
+        System.out.println("numbers2 удалить 15: " + numbers2.remove(15));
+        System.out.println("numbers2 поиск 15: " + numbers2.contains(15));
         System.out.println();
 
         System.out.println("Обход в ширину numbers2:");
@@ -113,11 +113,11 @@ public class Main {
         System.out.println("Количество элементов numbers2 = " + numbers2.getCount());
         System.out.println();
 
-        Tree<Integer> numbers3 = new Tree<>();
+        Tree<Integer> numbers3 = new Tree<>(comparator);
 
-        System.out.println("Поиск 15: " + numbers3.contains(15));
-        System.out.println("Удалить 15: " + numbers3.remove(15));
-        System.out.println("Поиск 15: " + numbers3.contains(15));
+        System.out.println("numbers3 поиск 15: " + numbers3.contains(15));
+        System.out.println("numbers3 удалить 15: " + numbers3.remove(15));
+        System.out.println("numbers3 поиск 15: " + numbers3.contains(15));
         System.out.println();
 
         numbers3.add(8);
@@ -161,5 +161,33 @@ public class Main {
         numbers2.widthTraversal(consumer);
         System.out.println();
         System.out.println("Количество элементов numbers2 = " + numbers2.getCount());
+
+        Tree<Integer> numbers4 = new Tree<>(comparator);
+
+        numbers4.add(20);
+        numbers4.add(2);
+        numbers4.add(18);
+        numbers4.add(10);
+        numbers4.add(4);
+        numbers4.add(14);
+        numbers4.add(12);
+        numbers4.add(16);
+        numbers4.add(13);
+
+        System.out.println("Обход в ширину numbers4:");
+        numbers4.widthTraversal(consumer);
+        System.out.println();
+        System.out.println("Количество элементов numbers4 = " + numbers4.getCount());
+        System.out.println();
+
+        System.out.println("numbers4 удалить 10: " + numbers4.remove(10));
+        System.out.println("numbers4 поиск 10: " + numbers4.contains(10));
+        System.out.println();
+
+        System.out.println("Обход в ширину numbers4:");
+        numbers4.widthTraversal(consumer);
+        System.out.println();
+        System.out.println("Количество элементов numbers4 = " + numbers4.getCount());
+        System.out.println();
     }
 }
