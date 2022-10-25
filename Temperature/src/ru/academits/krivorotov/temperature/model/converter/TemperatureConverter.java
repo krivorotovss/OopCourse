@@ -7,8 +7,8 @@ import java.util.List;
 public class TemperatureConverter implements Converter {
     private final List<Scale> scales;
 
-    public TemperatureConverter(List<Scale> listScale) {
-        scales = listScale;
+    public TemperatureConverter(List<Scale> scalesList) {
+        scales = scalesList;
     }
 
     public List<Scale> getScales() {

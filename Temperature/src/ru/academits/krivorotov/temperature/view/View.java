@@ -8,8 +8,8 @@ import java.awt.*;
 
 public class View {
     private JTextField inputTemperatureTextField;
-    private JComboBox<Object> inputScalesComboBox;
-    private JComboBox<Object> outputScalesComboBox;
+    private JComboBox<Scale> inputScalesComboBox;
+    private JComboBox<Scale> outputScalesComboBox;
     private JLabel outputResultLabel;
     private JFrame frame;
     private final Converter converter;
@@ -18,7 +18,7 @@ public class View {
         this.converter = converter;
     }
 
-    public void initialization() {
+    public void start() {
         SwingUtilities.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -28,8 +28,8 @@ public class View {
             frame = new JFrame("Конвертер температуры");
             frame.getContentPane().setLayout(new BorderLayout());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(600, 250);
-            frame.setMinimumSize(new Dimension(450, 250));
+            frame.setSize(450, 170);
+            frame.setMinimumSize(new Dimension(450, 170));
             frame.setLocationRelativeTo(null);
             frame.pack();
             frame.setVisible(true);
@@ -40,7 +40,7 @@ public class View {
             JLabel outputScaleLabel = new JLabel("Выберите шкалу для перевода: ");
             JLabel outputTemperatureLabel = new JLabel("Результат: ");
 
-            Object[] items = converter.getScales().toArray();
+            Scale[] items = converter.getScales().toArray(new Scale[0]);
 
             inputTemperatureTextField = new JTextField("0");
             inputScalesComboBox = new JComboBox<>(items);

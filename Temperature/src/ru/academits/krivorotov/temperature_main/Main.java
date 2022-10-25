@@ -16,6 +16,6 @@ public class Main {
 
         Converter converter = new TemperatureConverter(scales);
         View view = new View(converter);
-        view.initialization();
+        view.start();
     }
 }
