@@ -8,6 +8,10 @@ public class Tree<T> {
     private TreeNode<T> root;
     private int count;
 
+    public Tree() {
+        comparator = null;
+    }
+
     public Tree(Comparator<? super T> comparator) {
         this.comparator = comparator;
     }
@@ -106,14 +110,21 @@ public class Tree<T> {
         }
 
         if (compare(data, root.getData()) == 0) { // Нужно проверить есть ли правый сын
-            if (root.getRight() != null) { // Если правый сын есть
-                root = searchMinNodeAndChangeNode(root, null);
+            if (root.getLeft() == null || root.getRight() == null) {
+                if (root.getLeft() == null) { // Если нет левого сына у корня, то корень - правый сын
+                    root = root.getRight();
+                    count--;
+
+                    return true;
+                }
+
+                root = root.getLeft(); // Если нет правого сына у корня, то корень - левый сын
                 count--;
 
                 return true;
             }
 
-            root = root.getLeft(); // Если нет правого сына у корня, то корень - левый сын
+            root = searchMinNodeAndChangeNode(root, null); // Иначе есть оба сына
             count--;
 
             return true;
@@ -154,8 +165,8 @@ public class Tree<T> {
         }
     }
 
-    private void removeNode(TreeNode<T> currentNode, TreeNode<T> parentNode, boolean isCurrentLeftChild) {
-        if (currentNode.getLeft() == null && currentNode.getRight() == null) { // Удаляется узел - лист
+    private void removeNode(TreeNode<T> deletedNode, TreeNode<T> parentNode, boolean isCurrentLeftChild) {
+        if (deletedNode.getLeft() == null && deletedNode.getRight() == null) { // Удаляется узел - лист
             if (isCurrentLeftChild) {
                 parentNode.setLeft(null);
             } else {
@@ -168,23 +179,66 @@ public class Tree<T> {
         }
 
         // Удаляется узел с 1 потомком
-        if (currentNode.getLeft() == null) { // Нет левого внука
+        if (deletedNode.getLeft() == null) { // Нет левого внука
             if (isCurrentLeftChild) {
-                parentNode.setLeft(currentNode.getRight());
+                parentNode.setLeft(deletedNode.getRight());
             } else {
-                parentNode.setRight(currentNode.getRight());
+                parentNode.setRight(deletedNode.getRight());
             }
-        } else if (currentNode.getRight() == null) { // Нет правого внука
+        } else if (deletedNode.getRight() == null) { // Нет правого внука
             if (isCurrentLeftChild) {
-                parentNode.setLeft(currentNode.getLeft());
+                parentNode.setLeft(deletedNode.getLeft());
             } else {
-                parentNode.setRight(currentNode.getLeft());
+                parentNode.setRight(deletedNode.getLeft());
             }
         } else { // Удаление узла с 2-мя потомками
-            searchMinNodeAndChangeNode(currentNode, parentNode);
+            searchMinNodeAndChangeNode(deletedNode, parentNode);
         }
 
         count--;
+    }
+
+    private TreeNode<T> searchMinNodeAndChangeNode(TreeNode<T> deletedNode, TreeNode<T> deletedNodeParentNode) {
+        TreeNode<T> minNode = deletedNode.getRight(); // Минимальный узел в правом поддереве
+        TreeNode<T> minNodeParentNode = deletedNode; // Родитель минимального узла
+
+        if (minNode.getLeft() == null) { // Если нет левой ветки в правом поддереве, он и есть минимальный узел
+            minNode.setLeft(deletedNode.getLeft());
+
+            if (deletedNodeParentNode != null) {
+                if (compare(deletedNode.getData(), deletedNodeParentNode.getData()) < 0) { // Удаляемый узел слева, если true
+                    deletedNodeParentNode.setLeft(minNode);
+                } else {
+                    deletedNodeParentNode.setRight(minNode);
+                }
+            }
+
+            return minNode;
+        }
+
+        while (minNode.getLeft() != null) { // Поиск минимального узла
+            minNodeParentNode = minNode;
+            minNode = minNode.getLeft();
+        }
+
+        if (minNode.getRight() == null) { // Случай, когда нет правого сына
+            minNodeParentNode.setLeft(minNode.getRight());
+        } else {
+            minNodeParentNode.setLeft(minNode.getRight());
+        }
+
+        if (deletedNodeParentNode != null) {
+            if (compare(deletedNode.getData(), deletedNodeParentNode.getData()) < 0) { // Удаляемый узел слева, если true
+                deletedNodeParentNode.setLeft(minNode);
+            } else {
+                deletedNodeParentNode.setRight(minNode);
+            }
+        }
+
+        minNode.setLeft(deletedNode.getLeft());
+        minNode.setRight(deletedNode.getRight());
+
+        return minNode;
     }
 
     public void widthTraversal(Consumer<T> consumer) {
@@ -248,48 +302,5 @@ public class Tree<T> {
                 stack.addFirst(currentNode.getLeft());
             }
         }
-    }
-
-    private TreeNode<T> searchMinNodeAndChangeNode(TreeNode<T> deletedNode, TreeNode<T> deletedNodeParentNode) {
-        TreeNode<T> minNode = deletedNode.getRight(); // Минимальный узел в правом поддереве
-        TreeNode<T> minNodeParentNode = deletedNode; // Родитель минимального узла
-
-        if (minNode.getLeft() == null) { // Если нет левой ветки в правом поддереве, он и есть минимальный узел
-            minNode.setLeft(deletedNode.getLeft());
-
-            if (deletedNodeParentNode != null) {
-                if (compare(deletedNode.getData(), deletedNodeParentNode.getData()) < 0) { // Удаляемый узел слева, если true
-                    deletedNodeParentNode.setLeft(minNode);
-                } else {
-                    deletedNodeParentNode.setRight(minNode);
-                }
-            }
-
-            return minNode;
-        }
-
-        while (minNode.getLeft() != null) { // Поиск минимального узла
-            minNodeParentNode = minNode;
-            minNode = minNode.getLeft();
-        }
-
-        if (minNode.getRight() == null) { // Случай, когда нет правого сына
-            minNodeParentNode.setLeft(null);
-        } else {
-            minNodeParentNode.setLeft(minNode.getRight());
-        }
-
-        if (deletedNodeParentNode != null) {
-            if (compare(deletedNode.getData(), deletedNodeParentNode.getData()) < 0) { // Удаляемый узел слева, если true
-                deletedNodeParentNode.setLeft(minNode);
-            } else {
-                deletedNodeParentNode.setRight(minNode);
-            }
-        }
-
-        minNode.setLeft(deletedNode.getLeft());
-        minNode.setRight(deletedNode.getRight());
-
-        return minNode;
     }
 }

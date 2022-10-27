@@ -189,5 +189,48 @@ public class Main {
         System.out.println();
         System.out.println("Количество элементов numbers4 = " + numbers4.getCount());
         System.out.println();
+
+        Tree<Integer> numbers5 = new Tree<>();
+
+        numbers5.add(20);
+        numbers5.add(2);
+        numbers5.add(18);
+        numbers5.add(10);
+
+        System.out.println("Обход в ширину numbers5:");
+        numbers5.widthTraversal(consumer);
+        System.out.println();
+        System.out.println("Количество элементов numbers5 = " + numbers5.getCount());
+        System.out.println();
+
+        Tree<Integer> numbers6 = new Tree<>();
+
+        numbers6.add(20);
+        numbers6.add(21);
+        numbers6.add(22);
+        numbers6.add(20);
+
+        numbers6.remove(20);
+
+        System.out.println("Обход в ширину numbers6:");
+        numbers6.widthTraversal(consumer);
+        System.out.println();
+        System.out.println("Количество элементов numbers6 = " + numbers6.getCount());
+        System.out.println();
+
+        Tree<Integer> numbers7 = new Tree<>();
+
+        numbers7.add(20);
+        numbers7.add(18);
+        numbers7.add(17);
+        numbers7.add(19);
+
+        numbers7.remove(20);
+
+        System.out.println("Обход в ширину numbers7:");
+        numbers7.widthTraversal(consumer);
+        System.out.println();
+        System.out.println("Количество элементов numbers7 = " + numbers7.getCount());
+        System.out.println();
     }
 }
