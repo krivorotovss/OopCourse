@@ -109,7 +109,7 @@ public class Tree<T> {
             return false;
         }
 
-        if (compare(data, root.getData()) == 0) { // Нужно проверить есть ли правый сын
+        if (compare(data, root.getData()) == 0) {
             if (root.getLeft() == null || root.getRight() == null) {
                 if (root.getLeft() == null) { // Если нет левого сына у корня, то корень - правый сын
                     root = root.getRight();
@@ -222,8 +222,6 @@ public class Tree<T> {
         }
 
         if (minNode.getRight() == null) { // Случай, когда нет правого сына
-            minNodeParentNode.setLeft(minNode.getRight());
-        } else {
             minNodeParentNode.setLeft(minNode.getRight());
         }
 
